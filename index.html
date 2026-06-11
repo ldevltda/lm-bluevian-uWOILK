@@ -1989,6 +1989,86 @@
         line-height: 1.75;
       }
 
+      .legal-modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(3, 7, 18, 0.82);
+        backdrop-filter: blur(10px);
+        z-index: 12000;
+      }
+      .legal-modal.open {
+        display: flex;
+      }
+      .legal-dialog {
+        width: min(920px, 100%);
+        max-height: min(88vh, 920px);
+        overflow: auto;
+        position: relative;
+      }
+      .legal-close {
+        position: sticky;
+        top: 0;
+        margin-left: auto;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--border);
+        border-radius: var(--r-full);
+        background: rgba(9, 9, 11, 0.92);
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        z-index: 2;
+      }
+      .legal-card {
+        background: linear-gradient(
+          180deg,
+          rgba(24, 24, 27, 0.9),
+          rgba(17, 17, 19, 0.96)
+        );
+        border: 1px solid var(--border);
+        border-radius: var(--r-xl);
+        box-shadow: var(--shadow-lg);
+        padding: clamp(24px, 4vw, 40px);
+      }
+      .legal-meta {
+        margin-top: 16px;
+        color: var(--text-3);
+        font-size: 0.9rem;
+      }
+      .legal-block + .legal-block {
+        margin-top: 28px;
+        padding-top: 28px;
+        border-top: 1px solid var(--border);
+      }
+      .legal-block h3 {
+        margin-bottom: 12px;
+      }
+      .legal-block p + p,
+      .legal-block li + li {
+        margin-top: 10px;
+      }
+      .legal-block ul {
+        list-style: disc;
+        padding-left: 20px;
+      }
+      .legal-address {
+        margin-top: 18px;
+        padding: 18px 20px;
+        border: 1px solid var(--border);
+        border-radius: var(--r-md);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      body.legal-open {
+        overflow: hidden;
+      }
+
       /* ===================== CTA FINAL ===================== */
       .cta-final-inner {
         text-align: center;
@@ -3671,6 +3751,162 @@
         </div>
       </div>
     </section>
+    <div
+      id="legal-modal-privacy"
+      class="legal-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="legal-title-privacy"
+    >
+      <div class="legal-dialog">
+        <button class="legal-close" type="button" data-legal-close aria-label="Fechar">
+          ×
+        </button>
+        <div class="legal-card">
+          <div class="section-header">
+            <span class="section-label">Privacidade</span>
+            <h2 id="legal-title-privacy" class="section-headline">Política de Privacidade</h2>
+            <p class="section-sub">
+              Esta política descreve como a Bluevian, operada por L B Fernandes
+              LTDA, coleta, utiliza, armazena e protege dados pessoais de
+              visitantes, leads, usuários e clientes.
+            </p>
+            <p class="legal-meta">Última atualização: 11 de junho de 2026.</p>
+          </div>
+          <div class="legal-block">
+            <h3>1. Controladora dos dados</h3>
+            <p>A controladora dos dados pessoais tratados nesta operação é:</p>
+            <div class="legal-address">
+              <p><strong>L B Fernandes LTDA</strong></p>
+              <p>Nome fantasia: Ldev</p>
+              <p>CNPJ: 53.696.338/0001-96</p>
+              <p>Endereço: Rua Raimundo Nogueira, 48, Complemento A, Bairro Aeroporto, Fortaleza/CE, CEP 60860-050</p>
+              <p>Correspondência: Ldev L B Fernandes LTDA, Rua Raimundo Nogueira 48 A, Aeroporto, Fortaleza/CE, CEP 60860-050</p>
+            </div>
+          </div>
+          <div class="legal-block">
+            <h3>2. Dados que podemos coletar</h3>
+            <ul>
+              <li>Dados cadastrais, como nome, e-mail, telefone e empresa.</li>
+              <li>Dados de acesso, navegação, dispositivo, IP, cookies e registros de uso.</li>
+              <li>Dados informados em formulários, atendimentos, suporte ou demonstrações.</li>
+              <li>Dados necessários para contratação, cobrança e gestão da conta.</li>
+              <li>Dados de campanhas, integrações e uso da plataforma inseridos pelo próprio cliente.</li>
+            </ul>
+          </div>
+          <div class="legal-block">
+            <h3>3. Finalidades do tratamento</h3>
+            <ul>
+              <li>Permitir contato comercial, demonstrações e resposta a solicitações.</li>
+              <li>Viabilizar cadastro, autenticação e uso da plataforma Bluevian.</li>
+              <li>Processar pagamentos, assinaturas, faturamento e suporte ao cliente.</li>
+              <li>Melhorar funcionalidades, segurança, desempenho e experiência do usuário.</li>
+              <li>Cumprir obrigações legais, regulatórias e contratuais.</li>
+              <li>Prevenir fraudes, abusos e incidentes de segurança.</li>
+            </ul>
+          </div>
+          <div class="legal-block">
+            <h3>4. Bases legais</h3>
+            <ul>
+              <li>Execução de contrato ou de procedimentos preliminares relacionados ao contrato.</li>
+              <li>Cumprimento de obrigação legal ou regulatória.</li>
+              <li>Legítimo interesse, observados os direitos e liberdades do titular.</li>
+              <li>Consentimento, quando exigido ou adequado ao contexto.</li>
+            </ul>
+          </div>
+          <div class="legal-block">
+            <h3>5. Compartilhamento, retenção e segurança</h3>
+            <p>Os dados poderão ser compartilhados, quando necessário, com fornecedores e parceiros que auxiliem na operação da Bluevian, incluindo serviços de hospedagem, analytics, pagamentos, atendimento, automação, armazenamento em nuvem e segurança.</p>
+            <p>Os dados serão mantidos pelo prazo necessário para cumprir as finalidades desta política, obrigações legais e regulatórias, exercício regular de direitos ou até o término da relação com o usuário, observados os prazos aplicáveis.</p>
+            <p>Adotamos medidas técnicas e organizacionais razoáveis para proteger os dados pessoais contra acessos não autorizados, perda, alteração, divulgação ou destruição indevida.</p>
+          </div>
+          <div class="legal-block">
+            <h3>6. Cookies e direitos do titular</h3>
+            <p>Podemos utilizar cookies e tecnologias similares para funcionamento do site, análise de navegação, segurança, personalização de experiência e mensuração de campanhas.</p>
+            <p>Nos termos da LGPD, o titular pode solicitar confirmação de tratamento, acesso, correção, anonimização, bloqueio, eliminação, portabilidade, informações sobre compartilhamento e revogação do consentimento, quando aplicável.</p>
+          </div>
+          <div class="legal-block">
+            <h3>7. Exercício de direitos e alterações</h3>
+            <p>Solicitações relacionadas a dados pessoais e privacidade podem ser encaminhadas pelos canais oficiais de atendimento da Bluevian ou por correspondência para o endereço informado nesta política.</p>
+            <p>Esta Política de Privacidade poderá ser atualizada a qualquer momento para refletir mudanças legais, operacionais ou de produto. A versão vigente será sempre a publicada nesta página.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="legal-modal-termos"
+      class="legal-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="legal-title-termos"
+    >
+      <div class="legal-dialog">
+        <button class="legal-close" type="button" data-legal-close aria-label="Fechar">
+          ×
+        </button>
+        <div class="legal-card">
+          <div class="section-header">
+            <span class="section-label">Uso da plataforma</span>
+            <h2 id="legal-title-termos" class="section-headline">Termos de Uso</h2>
+            <p class="section-sub">
+              Estes termos regulam o acesso e a utilização do site, da landing
+              page, dos serviços e da plataforma Bluevian.
+            </p>
+            <p class="legal-meta">Última atualização: 11 de junho de 2026.</p>
+          </div>
+          <div class="legal-block">
+            <h3>1. Identificação da empresa</h3>
+            <div class="legal-address">
+              <p><strong>L B Fernandes LTDA</strong></p>
+              <p>Nome fantasia: Ldev</p>
+              <p>CNPJ: 53.696.338/0001-96</p>
+              <p>Endereço: Rua Raimundo Nogueira, 48, Complemento A, Bairro Aeroporto, Fortaleza/CE, CEP 60860-050</p>
+            </div>
+          </div>
+          <div class="legal-block">
+            <h3>2. Objeto</h3>
+            <p>A Bluevian oferece uma plataforma SaaS voltada a processos de lançamento de produtos no digital, pesquisa, organização de ativos, fluxos operacionais, campanhas e recursos relacionados, conforme disponibilidade e evolução do produto.</p>
+          </div>
+          <div class="legal-block">
+            <h3>3. Cadastro e acesso</h3>
+            <ul>
+              <li>O usuário deve fornecer informações verdadeiras, completas e atualizadas.</li>
+              <li>As credenciais de acesso são pessoais e de responsabilidade do titular da conta.</li>
+              <li>O usuário deve adotar medidas adequadas para proteger login, senha e acessos vinculados à conta.</li>
+              <li>A Bluevian poderá suspender ou restringir acessos em caso de uso indevido, fraude, violação destes termos ou risco operacional.</li>
+            </ul>
+          </div>
+          <div class="legal-block">
+            <h3>4. Uso permitido</h3>
+            <ul>
+              <li>O usuário deve utilizar a plataforma de forma lícita, ética e compatível com sua finalidade.</li>
+              <li>É vedado violar leis, direitos de terceiros ou políticas de plataformas integradas.</li>
+              <li>É vedado tentar acessar áreas restritas, explorar vulnerabilidades ou comprometer a segurança do sistema.</li>
+              <li>É vedado reproduzir, copiar, distribuir, revender ou explorar comercialmente a plataforma fora do escopo contratado.</li>
+            </ul>
+          </div>
+          <div class="legal-block">
+            <h3>5. Planos, cobrança e cancelamento</h3>
+            <p>O acesso a funcionalidades pagas poderá depender da contratação de plano, assinatura, pagamento recorrente ou condição comercial específica divulgada pela Bluevian.</p>
+            <p>Condições de preço, renovação, teste, garantia, cancelamento e reembolso seguirão a oferta vigente no momento da contratação, bem como políticas comerciais eventualmente apresentadas ao cliente.</p>
+          </div>
+          <div class="legal-block">
+            <h3>6. Propriedade intelectual, disponibilidade e responsabilidade</h3>
+            <p>A titularidade da plataforma, do site, da marca Bluevian, dos códigos, interfaces, conteúdos institucionais, bases estruturais, métodos, fluxos e demais ativos relacionados pertence à L B Fernandes LTDA ou a terceiros licenciantes, conforme o caso.</p>
+            <p>A Bluevian envidará esforços comercialmente razoáveis para manter a plataforma disponível e segura, mas não garante operação ininterrupta ou livre de falhas.</p>
+            <p>Na extensão permitida pela legislação aplicável, a Bluevian não será responsável por lucros cessantes, perda de receita, perda de oportunidades, danos indiretos ou prejuízos decorrentes de uso inadequado da plataforma, decisões de negócio do usuário, falhas de terceiros ou indisponibilidades temporárias.</p>
+          </div>
+          <div class="legal-block">
+            <h3>7. Privacidade, alterações e foro</h3>
+            <p>O tratamento de dados pessoais relacionados ao uso do site e da plataforma observará a Política de Privacidade da Bluevian, que integra estes termos para todos os fins.</p>
+            <p>A Bluevian poderá atualizar estes Termos de Uso a qualquer momento. A versão vigente será a publicada nesta página, com indicação da data de atualização.</p>
+            <p>Estes Termos são regidos pelas leis da República Federativa do Brasil. Fica eleito o foro da comarca de Fortaleza/CE, salvo disposição legal imperativa em contrário, para dirimir controvérsias oriundas destes termos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <footer>
       <div class="footer-glow" aria-hidden="true"></div>
       <div class="container">
@@ -3733,7 +3969,7 @@
             © 2025 Bluevian. Todos os direitos reservados.
           </p>
           <div class="footer-bottom-links">
-            <a href="privacy.html">Política de Privacidade</a><a href="termos.html">Termos de Uso</a>
+            <a href="#privacy" data-legal-open="privacy">Política de Privacidade</a><a href="#termos" data-legal-open="termos">Termos de Uso</a>
           </div>
         </div>
       </div>
@@ -3933,6 +4169,56 @@
           { threshold: 0.1 },
         );
         observer.observe(oferta);
+      })();
+
+      (function () {
+        var body = document.body;
+        var modalMap = {
+          privacy: document.getElementById("legal-modal-privacy"),
+          termos: document.getElementById("legal-modal-termos"),
+        };
+
+        function closeAll() {
+          Object.keys(modalMap).forEach(function (key) {
+            var modal = modalMap[key];
+            if (!modal) return;
+            modal.classList.remove("open");
+            modal.setAttribute("aria-hidden", "true");
+          });
+          body.classList.remove("legal-open");
+        }
+
+        function openModal(key) {
+          closeAll();
+          var modal = modalMap[key];
+          if (!modal) return;
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+          body.classList.add("legal-open");
+        }
+
+        document.querySelectorAll("[data-legal-open]").forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            openModal(link.getAttribute("data-legal-open"));
+          });
+        });
+
+        document.querySelectorAll("[data-legal-close]").forEach(function (button) {
+          button.addEventListener("click", closeAll);
+        });
+
+        Object.keys(modalMap).forEach(function (key) {
+          var modal = modalMap[key];
+          if (!modal) return;
+          modal.addEventListener("click", function (event) {
+            if (event.target === modal) closeAll();
+          });
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") closeAll();
+        });
       })();
     </script>
 
