@@ -46,6 +46,9 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+    <link rel="dns-prefetch" href="https://pub-b7b1e2659d2a4a489cdc3ed7b519d038.r2.dev" />
     <link
       rel="preload"
       href="https://pub-b7b1e2659d2a4a489cdc3ed7b519d038.r2.dev/assets/cmpwqzbcw00003tmqoquir6w5/99648e01-91bf-4c81-8aec-484219464ff6.webp"
@@ -53,9 +56,17 @@
       fetchpriority="high"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -178,6 +189,7 @@
 
       .section {
         padding-block: clamp(64px, 10vw, 120px);
+        position: relative;
       }
       .section--alt {
         background: var(--bg-2);
@@ -3146,17 +3158,6 @@
 
 
 <!-- Meta Pixel -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','2186220055464773');fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></noscript>
-<!-- End Meta Pixel -->
 </head>
   <body>
     <header id="navbar">
@@ -3205,6 +3206,10 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             src="https://pub-b7b1e2659d2a4a489cdc3ed7b519d038.r2.dev/assets/cmpwqzbcw00003tmqoquir6w5/99648e01-91bf-4c81-8aec-484219464ff6.webp"
             alt="Bluevian"
             class="drawer-header-logo"
+            width="140"
+            height="36"
+            loading="lazy"
+            decoding="async"
           />
           <button class="drawer-close" id="drawer-close" type="button" aria-label="Fechar menu">×</button>
         </div>
@@ -3233,6 +3238,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         </div>
       </div>
     </div>
+    <main>
     <section
       id="hero"
       class="section"
@@ -4973,6 +4979,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         </div>
       </div>
     </div>
+    </main>
     <footer>
       <div class="footer-glow" aria-hidden="true"></div>
       <div class="container">
@@ -5378,7 +5385,26 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       })();
     </script>
 
-    
+    <script>
+      (function () {
+        function loadFBPixel() {
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+          n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+          document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init','2186220055464773');
+          fbq('track','PageView');
+        }
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadFBPixel, { timeout: 3000 });
+        } else {
+          setTimeout(loadFBPixel, 1500);
+        }
+      })();
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></noscript>
   </body>
 </html>
 
