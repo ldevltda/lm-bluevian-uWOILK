@@ -121,6 +121,8 @@
       html {
         scroll-behavior: smooth;
         -webkit-text-size-adjust: 100%;
+        overflow-x: hidden;
+        overflow-x: clip;
       }
       img,
       video {
@@ -574,40 +576,144 @@
       .hamburger.open span:nth-child(3) {
         transform: translateY(-7px) rotate(-45deg);
       }
+      /* Mobile drawer — painel lateral */
       #navbar-drawer {
         display: none;
         position: fixed;
-        top: 72px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(9, 9, 11, 0.97);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 32px clamp(20px, 4vw, 48px);
-        gap: 8px;
-        z-index: 99;
+        inset: 0;
+        z-index: 98;
       }
       #navbar-drawer.open {
-        display: flex;
+        display: block;
       }
-      #navbar-drawer a {
+
+      /* Backdrop escuro */
+      .drawer-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        animation: drawer-bg-in 0.25s ease forwards;
+      }
+      @keyframes drawer-bg-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Painel deslizando da direita */
+      .drawer-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: min(300px, 88vw);
+        height: 100%;
+        background: var(--bg-2);
+        border-left: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        box-shadow: -24px 0 64px rgba(0, 0, 0, 0.55);
+        animation: drawer-panel-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        overflow: hidden;
+      }
+      @keyframes drawer-panel-in {
+        from { transform: translateX(100%); }
+        to { transform: translateX(0); }
+      }
+
+      /* Header do painel */
+      .drawer-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .drawer-header-logo {
+        height: 30px;
+        width: auto;
+        object-fit: contain;
+      }
+      .drawer-close {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        cursor: pointer;
+        color: var(--text-2);
         font-size: 1.25rem;
+        font-family: var(--font-body);
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+      .drawer-close:hover {
+        background: var(--surface);
+        color: var(--text);
+        border-color: var(--border-glow);
+      }
+
+      /* Links de navegação */
+      .drawer-nav {
+        display: flex;
+        flex-direction: column;
+        padding: 8px 0;
+        flex: 1;
+        overflow-y: auto;
+      }
+      .drawer-nav a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 20px;
+        font-size: 0.9375rem;
         font-weight: 600;
         color: var(--text-2);
-        padding: 12px 0;
-        border-bottom: 1px solid var(--border);
+        font-family: var(--font-heading);
+        text-decoration: none;
+        transition: all 0.15s ease;
+        border: none;
         width: 100%;
-        transition: color 0.2s ease;
+        gap: 12px;
       }
-      #navbar-drawer a:hover {
+      .drawer-nav a:hover {
         color: var(--text);
+        background: var(--surface);
+        padding-left: 24px;
       }
-      #navbar-drawer .btn-primary {
-        margin-top: 16px;
+      .drawer-nav-arrow {
+        font-size: 0.75rem;
+        opacity: 0.25;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+        flex-shrink: 0;
+      }
+      .drawer-nav a:hover .drawer-nav-arrow {
+        opacity: 0.6;
+        transform: translateX(3px);
+      }
+      .drawer-nav-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 8px 20px;
+      }
+
+      /* Rodapé com CTA */
+      .drawer-footer {
+        padding: 20px;
+        border-top: 1px solid var(--border);
+        padding-bottom: max(20px, calc(16px + env(safe-area-inset-bottom, 0px)));
+        flex-shrink: 0;
+      }
+      .drawer-footer .btn-primary {
         width: 100%;
         justify-content: center;
+        font-size: 1rem;
+        min-height: 52px;
       }
       @media (max-width: 900px) {
         .navbar-nav {
@@ -2762,6 +2868,11 @@
         .glow-secondary {
           display: none;
         }
+        .glow-mid {
+          width: 280px;
+          height: 200px;
+          opacity: 0.05;
+        }
       }
       @media (max-width: 768px) {
         /* Badge em 1 linha no mobile */
@@ -3085,16 +3196,42 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
           </div>
         </nav>
       </div>
-      <nav id="navbar-drawer" aria-hidden="true">
-        <a href="#como-funciona">Como funciona</a><a href="#modulos">Módulos</a
-        ><a href="#oferta">Preço</a><a href="#faq">Dúvidas</a
-        ><a
-          href="#oferta"
-          class="btn-primary"
-          data-cta="true"
-          >Criar minha conta na Bluevian</a
-        >
-      </nav>
+      <div id="navbar-drawer" aria-hidden="true" aria-label="Menu de navegação">
+        <div class="drawer-backdrop" id="drawer-backdrop"></div>
+        <div class="drawer-panel" role="dialog">
+          <div class="drawer-header">
+            <img
+              src="https://pub-b7b1e2659d2a4a489cdc3ed7b519d038.r2.dev/assets/cmpwqzbcw00003tmqoquir6w5/99648e01-91bf-4c81-8aec-484219464ff6.webp"
+              alt="Bluevian"
+              class="drawer-header-logo"
+            />
+            <button class="drawer-close" id="drawer-close" type="button" aria-label="Fechar menu">×</button>
+          </div>
+          <nav class="drawer-nav">
+            <a href="#como-funciona">
+              <span>Como funciona</span>
+              <span class="drawer-nav-arrow">→</span>
+            </a>
+            <a href="#modulos">
+              <span>Módulos</span>
+              <span class="drawer-nav-arrow">→</span>
+            </a>
+            <a href="#oferta">
+              <span>Preço</span>
+              <span class="drawer-nav-arrow">→</span>
+            </a>
+            <a href="#faq">
+              <span>Dúvidas</span>
+              <span class="drawer-nav-arrow">→</span>
+            </a>
+          </nav>
+          <div class="drawer-footer">
+            <a href="#oferta" class="btn-primary" data-cta="true">
+              Criar minha conta →
+            </a>
+          </div>
+        </div>
+      </div>
     </header>
     <section
       id="hero"
@@ -4948,24 +5085,44 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         );
       })();
 
-      // 3. Hamburger mobile
+      // 3. Hamburger mobile — drawer panel
       (function () {
         var hamburger = document.getElementById("hamburger");
         var drawer = document.getElementById("navbar-drawer");
+        var backdrop = document.getElementById("drawer-backdrop");
+        var drawerClose = document.getElementById("drawer-close");
         if (!hamburger || !drawer) return;
+
+        function openDrawer() {
+          hamburger.classList.add("open");
+          hamburger.setAttribute("aria-expanded", "true");
+          drawer.classList.add("open");
+          drawer.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeDrawer() {
+          hamburger.classList.remove("open");
+          hamburger.setAttribute("aria-expanded", "false");
+          drawer.classList.remove("open");
+          drawer.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        }
+
         hamburger.addEventListener("click", function () {
-          var isOpen = hamburger.classList.toggle("open");
-          hamburger.setAttribute("aria-expanded", String(isOpen));
-          drawer.classList.toggle("open", isOpen);
-          drawer.setAttribute("aria-hidden", String(!isOpen));
+          drawer.classList.contains("open") ? closeDrawer() : openDrawer();
         });
+
+        if (drawerClose) drawerClose.addEventListener("click", closeDrawer);
+        if (backdrop) backdrop.addEventListener("click", closeDrawer);
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && drawer.classList.contains("open")) closeDrawer();
+        });
+
+        // Fechar ao clicar em qualquer link da nav
         drawer.querySelectorAll("a").forEach(function (link) {
-          link.addEventListener("click", function () {
-            hamburger.classList.remove("open");
-            hamburger.setAttribute("aria-expanded", "false");
-            drawer.classList.remove("open");
-            drawer.setAttribute("aria-hidden", "true");
-          });
+          link.addEventListener("click", closeDrawer);
         });
       })();
 
