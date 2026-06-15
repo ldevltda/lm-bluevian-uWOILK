@@ -260,6 +260,14 @@
         margin-inline: auto;
       }
 
+      button.btn-primary,
+      button.btn-secondary {
+        font-family: var(--font-body);
+        -webkit-appearance: none;
+        appearance: none;
+        line-height: normal;
+      }
+
       .btn-primary {
         position: relative;
         display: inline-flex;
@@ -626,8 +634,13 @@
       .hero-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: clamp(40px, 6vw, 80px);
+        column-gap: clamp(40px, 6vw, 80px);
+        row-gap: 0;
         align-items: center;
+      }
+      .hero-left {
+        display: flex;
+        flex-direction: column;
       }
       .hero-badge {
         display: inline-flex;
@@ -957,9 +970,29 @@
       @media (max-width: 960px) {
         .hero-grid {
           grid-template-columns: 1fr;
+          row-gap: 24px;
+        }
+        /* Dissolve o wrapper: filhos viram itens diretos do grid */
+        .hero-left {
+          display: contents;
+        }
+        /* Ordem: badge+h1 → visual → sub+ctas */
+        .hero-content-top {
+          order: 1;
         }
         .hero-visual {
-          order: -1;
+          order: 2;
+        }
+        .hero-content-bottom {
+          order: 3;
+        }
+        /* Remover margin-bottom do headline para não somar com row-gap */
+        .hero-headline {
+          margin-bottom: 0;
+        }
+        /* Remover margin-bottom da sub para não somar com gap acima do visual */
+        .hero-subheadline {
+          margin-bottom: 24px;
         }
         .float-card-1 {
           top: -12px;
@@ -1123,23 +1156,31 @@
           grid-template-columns: 1fr;
         }
         .modules-tabs {
+          display: flex;
           flex-direction: row;
-          flex-wrap: nowrap;
-          overflow-x: auto;
+          flex-wrap: wrap;
+          justify-content: center;
+          overflow: visible;
           position: static;
-          padding-bottom: 4px;
           gap: 8px;
         }
         .module-tab {
-          flex-shrink: 0;
+          flex: 0 0 calc(33.333% - 6px);
           flex-direction: column;
           align-items: center;
           text-align: center;
-          padding: 12px;
-          min-width: 80px;
+          padding: 10px 6px;
+          min-width: 0;
+          justify-content: center;
+        }
+        .module-tab-num {
+          width: 26px;
+          height: 26px;
+          font-size: 0.6875rem;
         }
         .module-tab-label {
-          font-size: 0.6875rem;
+          font-size: 0.625rem;
+          line-height: 1.3;
         }
       }
 
@@ -1197,7 +1238,31 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: clamp(32px, 5vw, 64px);
+        align-items: start;
+      }
+      .dor-col-label {
+        margin-bottom: 16px;
+      }
+      .dor-col-badge {
+        display: inline-flex;
         align-items: center;
+        gap: 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 5px 12px;
+        border-radius: var(--r-full);
+      }
+      .dor-col-badge--x {
+        background: rgba(220, 38, 38, 0.12);
+        color: #f87171;
+        border: 1px solid rgba(220, 38, 38, 0.2);
+      }
+      .dor-col-badge--check {
+        background: rgba(5, 150, 105, 0.12);
+        color: #6ee7b7;
+        border: 1px solid rgba(5, 150, 105, 0.2);
       }
       .dor-list {
         display: flex;
@@ -1290,13 +1355,42 @@
         .dor-grid {
           grid-template-columns: 1fr;
         }
+        .dor-solution {
+          order: -1;
+        }
       }
 
       /* ===================== PARA QUEM ===================== */
       .para-quem-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(6, 1fr);
         gap: 24px;
+      }
+      /* 3 cards na primeira linha */
+      .para-quem-card {
+        grid-column: span 2;
+      }
+      /* 2 cards centralizados na segunda linha */
+      .para-quem-card:nth-child(4) {
+        grid-column: 2 / span 2;
+      }
+      .para-quem-card:nth-child(5) {
+        grid-column: 4 / span 2;
+      }
+      @media (max-width: 900px) {
+        .para-quem-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .para-quem-card,
+        .para-quem-card:nth-child(4),
+        .para-quem-card:nth-child(5) {
+          grid-column: auto;
+        }
+      }
+      @media (max-width: 480px) {
+        .para-quem-grid {
+          grid-template-columns: 1fr;
+        }
       }
       .para-quem-card {
         background: var(--surface);
@@ -2372,39 +2466,543 @@
         }
       }
 
-      /* ===================== BENEFITS STRIP ===================== */
-      .benefits-strip {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        padding-block: clamp(32px, 5vw, 48px);
+
+      /* ===================== VISUAL POLISH V2 ===================== */
+
+      /* Stat cards — spring physics hover + glow */
+      .stat-card {
+        transition:
+          transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
       }
-      .benefit-pill {
+      .stat-card:hover {
+        transform: translateY(-6px) scale(1.015);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+      }
+
+      /* Objeções cards — inner glow line + glow hover */
+      .objecao-card {
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .objecao-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--border-glow) 30%,
+          var(--border-glow) 70%,
+          transparent
+        );
+      }
+      .objecao-card:hover {
+        border-color: rgba(99, 102, 241, 0.25);
+        box-shadow: var(--shadow-md), 0 0 0 1px rgba(99, 102, 241, 0.08),
+          var(--shadow-glow);
+      }
+
+      /* Float cards — glass inset depth */
+      .float-card {
+        box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+      }
+
+      /* CTA Final — dramatic gradient overlay */
+      #cta-final::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% 0%,
+            rgba(37, 99, 235, 0.18) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 50% 40% at 85% 100%,
+            rgba(139, 92, 246, 0.12) 0%,
+            transparent 70%
+          );
+      }
+      #cta-final > .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Dor — section glow */
+      #dor {
+        position: relative;
+        overflow: hidden;
+      }
+      #dor::before {
+        content: "";
+        position: absolute;
+        width: 700px;
+        height: 350px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        opacity: 0.04;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        filter: blur(120px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      #dor > .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Dor X icons — stronger with glow */
+      .dor-x {
+        background: rgba(220, 38, 38, 0.22);
+        box-shadow: 0 0 10px rgba(220, 38, 38, 0.18);
+      }
+      .dor-item:hover .dor-x {
+        box-shadow: 0 0 16px rgba(220, 38, 38, 0.3);
+      }
+
+      /* Dor check icons — stronger with glow */
+      .dor-check {
+        background: rgba(5, 150, 105, 0.22);
+        box-shadow: 0 0 10px rgba(5, 150, 105, 0.18);
+      }
+
+      /* Dor solution card — glow treatment */
+      .dor-solution-card {
+        box-shadow: var(--shadow-md);
+        transition:
+          box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+      .dor-solution-card:hover {
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+      }
+
+      /* Garantia badge — pulsing ambient glow */
+      @keyframes glow-pulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 16px rgba(37, 99, 235, 0.22),
+            0 0 32px rgba(99, 102, 241, 0.08);
+        }
+        50% {
+          box-shadow:
+            0 0 28px rgba(37, 99, 235, 0.42),
+            0 0 56px rgba(99, 102, 241, 0.18);
+        }
+      }
+      .garantia-badge {
+        animation: glow-pulse 3s ease-in-out infinite;
+      }
+
+      /* Para quem cards — glow hover variant */
+      .para-quem-card:hover {
+        border-color: rgba(99, 102, 241, 0.2);
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+      }
+
+      /* Hero visual glow — richer dual-color */
+      .hero-visual-glow {
+        width: 90%;
+        height: 80%;
+        background: radial-gradient(
+          ellipse at center,
+          var(--accent) 0%,
+          var(--accent-2) 55%,
+          transparent 100%
+        );
+        opacity: 0.13;
+      }
+
+
+      /* Objeções — section glow */
+      #objecoes {
+        position: relative;
+        overflow: hidden;
+      }
+      #objecoes::before {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 300px;
+        background: var(--accent-2);
+        opacity: 0.04;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        filter: blur(120px);
+        pointer-events: none;
+        z-index: 0;
+      }
+      #objecoes > .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Plano destaque — enhanced glow on hover */
+      .plano-card.destaque:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg), 0 0 60px rgba(99, 102, 241, 0.3);
+      }
+
+      /* Module panel — subtle glow on hover */
+      .module-panel-content {
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .module-panel-content:hover {
+        border-color: rgba(37, 99, 235, 0.35);
+        box-shadow: var(--shadow-lg), var(--shadow-glow);
+      }
+
+      /* Step numbers — stronger ambient glow */
+      .step-number {
+        box-shadow:
+          0 0 24px rgba(37, 99, 235, 0.55),
+          0 0 48px rgba(99, 102, 241, 0.18);
+      }
+
+      /* FAQ — open state visual */
+      .faq-item:has([aria-expanded="true"]) {
+        border-color: rgba(37, 99, 235, 0.22);
+        background: rgba(37, 99, 235, 0.02);
+      }
+      .faq-item:has([aria-expanded="true"]) .faq-icon {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      /* Credential items — hover depth */
+      .credential-item:hover {
+        background: var(--surface-2);
+      }
+
+      /* Mobile sticky CTA */
+      .cta-sticky-mobile {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 90;
+        padding: 12px 20px;
+        padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        background: rgba(9, 9, 11, 0.93);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+      }
+      .cta-sticky-mobile .btn-primary {
+        width: 100%;
+        justify-content: center;
+        min-height: 50px;
+        font-size: 0.9375rem;
+      }
+      @media (max-width: 768px) {
+        .cta-sticky-mobile {
+          display: flex;
+          align-items: center;
+        }
+        body {
+          padding-bottom: 80px;
+        }
+      }
+
+      /* ===================== MOBILE — REVISÃO COMPLETA ===================== */
+
+      /* HERO: float cards escondidos, CTAs full-width, glow reduzido */
+      @media (max-width: 768px) {
+        .float-card {
+          display: none;
+        }
+        .hero-ctas {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 10px;
+        }
+        .hero-ctas .btn-primary,
+        .hero-ctas .btn-secondary {
+          width: 100%;
+          justify-content: center;
+          text-align: center;
+        }
+        #hero {
+          padding-bottom: max(80px, calc(60px + env(safe-area-inset-bottom, 0px)));
+        }
+        .hero-headline {
+          font-size: clamp(1.75rem, 7vw, 2.5rem);
+        }
+        .hero-subheadline {
+          font-size: 1rem;
+          max-width: 100%;
+        }
+        .glow-primary {
+          width: 300px;
+          height: 200px;
+          opacity: 0.08;
+        }
+        .glow-secondary {
+          display: none;
+        }
+      }
+      @media (max-width: 768px) {
+        /* Badge em 1 linha no mobile */
+        .hero-badge {
+          font-size: 0.625rem;
+          padding: 4px 10px;
+          gap: 5px;
+          white-space: nowrap;
+        }
+        /* "A Bluevian faz o lançamento" em bloco próprio, um pouco maior */
+        .hero-headline .gradient-text {
+          display: block;
+          font-size: 1.1em;
+          margin-top: 6px;
+          line-height: 1.15;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero-headline {
+          font-size: clamp(1.625rem, 7vw, 2rem);
+        }
+      }
+
+      /* STATS: 2 colunas no mobile */
+      @media (max-width: 768px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+      }
+      @media (max-width: 380px) {
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* SECTION HEADERS: tipografia e max-width no mobile */
+      @media (max-width: 768px) {
+        .section-headline {
+          font-size: clamp(1.5rem, 6vw, 2rem);
+        }
+        .section-sub {
+          max-width: 100%;
+          font-size: 1rem;
+        }
+        .section-header {
+          margin-bottom: 36px;
+        }
+      }
+
+
+      /* OBJEÇÕES: forçar 1 coluna (fix overflow: minmax(300px) > mobile) */
+      @media (max-width: 768px) {
+        .objecoes-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* STEP CONTENT: max-width 100% no mobile */
+      @media (max-width: 768px) {
+        .step-content p {
+          max-width: 100%;
+        }
+      }
+
+      /* AUTORIDADE: centralizar foto no mobile */
+      @media (max-width: 768px) {
+        .autoridade-grid {
+          justify-items: center;
+        }
+        .autoridade-credentials {
+          width: 100%;
+          text-align: left;
+        }
+        .autoridade-avatar-circle {
+          width: 120px;
+          height: 120px;
+        }
+      }
+
+      /* CAROUSEL: botão de controle com área de toque maior */
+      @media (max-width: 768px) {
+        .carousel-btn {
+          width: 48px;
+          height: 48px;
+        }
+      }
+
+      /* GARANTIA: padding reduzido em telas muito pequenas */
+      @media (max-width: 480px) {
+        .garantia-card {
+          padding: 28px 20px;
+        }
+        .garantia-badge {
+          width: 64px;
+          height: 64px;
+          font-size: 1.75rem;
+        }
+      }
+
+      /* OFERTA: 1 coluna + espaço para sticky CTA */
+      @media (max-width: 640px) {
+        .oferta-grid {
+          grid-template-columns: 1fr;
+        }
+        .oferta-selos {
+          gap: 12px;
+          font-size: 0.8125rem;
+        }
+      }
+      @media (max-width: 768px) {
+        #oferta {
+          padding-bottom: max(80px, calc(60px + env(safe-area-inset-bottom, 0px)));
+        }
+      }
+
+      /* FAQ: área de toque mínima de 56px */
+      @media (max-width: 768px) {
+        .faq-question {
+          min-height: 56px;
+          padding: 16px 20px;
+          font-size: 0.9375rem;
+        }
+        .faq-answer {
+          padding: 0 20px 18px;
+        }
+        .faq-icon {
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      /* CTA FINAL: botão full-width + espaço sticky CTA */
+      @media (max-width: 768px) {
+        #cta-final {
+          padding-bottom: max(80px, calc(60px + env(safe-area-inset-bottom, 0px)));
+        }
+        .cta-final-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .cta-final-actions .btn-primary {
+          width: 100%;
+          justify-content: center;
+          font-size: 1rem;
+          min-height: 56px;
+        }
+      }
+
+      /* FOOTER: padding-bottom no mobile para não cobrir com sticky CTA */
+      @media (max-width: 768px) {
+        footer {
+          padding-bottom: max(48px, calc(32px + env(safe-area-inset-bottom, 0px)));
+        }
+      }
+
+      /* ===== PLAN FORM MODAL ===== */
+      .plan-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 600;
+        align-items: center;
+        justify-content: center;
+      }
+      .plan-modal.open {
+        display: flex;
+      }
+      .plan-modal-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.82);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+      .plan-modal-dialog {
+        position: relative;
+        z-index: 1;
+        background: var(--bg-2);
+        border-radius: var(--r-xl);
+        width: min(520px, 96vw);
+        max-height: 92vh;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--border-glow);
+        box-shadow: var(--shadow-lg), 0 0 60px rgba(37, 99, 235, 0.12);
+        overflow: hidden;
+      }
+      .plan-modal-header {
         display: flex;
         align-items: center;
-        gap: 8px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--r-full);
-        padding: 8px 16px;
-        font-size: 0.875rem;
-        color: var(--text-2);
-        font-weight: 500;
-        transition:
-          border-color 0.2s ease,
-          color 0.2s ease;
-      }
-      .benefit-pill:hover {
-        border-color: var(--border-glow);
-        color: var(--text);
-      }
-      .benefit-pill-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--accent);
+        justify-content: space-between;
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border);
         flex-shrink: 0;
+      }
+      .plan-modal-title {
+        font-size: 0.8125rem;
+        font-weight: 700;
+        color: var(--accent);
+        font-family: var(--font-heading);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .plan-modal-close {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        color: var(--text-2);
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+        font-family: var(--font-body);
+        line-height: 1;
+      }
+      .plan-modal-close:hover {
+        background: var(--surface);
+        color: var(--text);
+        border-color: var(--border-glow);
+      }
+      .plan-modal-body {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        min-height: 320px;
+      }
+      @media (max-width: 640px) {
+        .plan-modal {
+          align-items: flex-end;
+        }
+        .plan-modal-dialog {
+          width: 100%;
+          border-radius: var(--r-xl) var(--r-xl) 0 0;
+          max-height: 90vh;
+        }
       }
     </style>
 
@@ -2470,7 +3068,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
           </div>
           <div class="navbar-nav">
             <a href="#como-funciona">Como funciona</a
-            ><a href="#modulos">Módulos</a><a href="#modulos">Preço</a
+            ><a href="#modulos">Módulos</a><a href="#oferta">Preço</a
             ><a href="#faq">Dúvidas</a>
           </div>
           <div class="navbar-actions">
@@ -2488,13 +3086,13 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         </nav>
       </div>
       <nav id="navbar-drawer" aria-hidden="true">
-        <a href="#como-funciona">Como funciona</a><a href="#faq">Módulos</a
-        ><a href="#oferta">Preço</a><a href="#oferta">Dúvidas</a
+        <a href="#como-funciona">Como funciona</a><a href="#modulos">Módulos</a
+        ><a href="#oferta">Preço</a><a href="#faq">Dúvidas</a
         ><a
-          href="https://buy.stripe.com/fZu6oA83Lf95cCsfIgaZi03"
+          href="#oferta"
           class="btn-primary"
           data-cta="true"
-          >Criar minha conta no Bluevian</a
+          >Criar minha conta na Bluevian</a
         >
       </nav>
     </header>
@@ -2507,41 +3105,45 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       <div class="glow-spot glow-secondary"></div>
       <div class="container">
         <div class="hero-grid">
-          <div class="hero-content fade-left">
-            <div class="hero-badge">
-              <span class="badge-dot"></span>
-              SaaS brasileiro para lançamentos
+          <div class="hero-left">
+            <div class="hero-content-top fade-left">
+              <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Do produto pronto à campanha no ar. Uma plataforma.
+              </div>
+              <h1 class="hero-headline">
+                Você tem o produto.
+                <span class="gradient-text">A Bluevian faz o lançamento.</span>
+              </h1>
             </div>
-            <h1 class="hero-headline">
-              Lance seu produto no digital
-              <span class="gradient-text">sem precisar montar</span> uma
-              estrutura do zero
-            </h1>
-            <p class="hero-subheadline">
-              O Bluevian é o SaaS brasileiro que leva você da pesquisa de
-              mercado até a campanha rodando no Meta, tudo em um único lugar,
-              sem precisar contratar ferramentas separadas para cada etapa.
-            </p>
-            <div class="hero-ctas">
-              <a href="#oferta" class="btn-primary" data-cta="true">
-                Criar minha conta no Bluevian
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
+            <div class="hero-content-bottom fade-left" data-delay="100">
+              <p class="hero-subheadline">
+                A plataforma brasileira que gera pesquisa de mercado,
+                posicionamento, copy, landing page, criativos e campanha no Meta
+                a partir do seu produto. Sem ferramentas separadas, sem
+                conhecimento técnico, sem contratar ninguém.
+              </p>
+              <div class="hero-ctas">
+                <a href="#oferta" class="btn-primary" data-cta="true">
+                  Lançar meu produto agora
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 8h10M9 4l4 4-4 4"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    /></svg></a
+                ><a href="#como-funciona" class="btn-secondary"
+                  >Ver como funciona</a
                 >
-                  <path
-                    d="M3 8h10M9 4l4 4-4 4"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  /></svg></a
-              ><a href="#como-funciona" class="btn-secondary"
-                >Ver como funciona</a
-              >
+              </div>
             </div>
           </div>
           <div class="hero-visual fade-right" data-delay="200">
@@ -2610,34 +3212,34 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                       <div>Aprovada</div>
                     </div>
                     <div class="mockup-card-item">
-                      <div class="tag tag-blue">LP</div>
-                      <div>Em revisão</div>
+                      <div class="tag tag-green">LP</div>
+                      <div>Publicada</div>
                     </div>
                   </div>
                   <div>
                     <div class="mockup-col-title">Campanha</div>
                     <div class="mockup-card-item">
-                      <div class="tag tag-orange">Meta</div>
-                      <div>Configurando</div>
+                      <div class="tag tag-green">Meta</div>
+                      <div>Ativa</div>
                     </div>
                     <div class="mockup-card-item">
                       <div class="tag tag-purple">Criativo</div>
-                      <div>3 variações</div>
+                      <div>3 prontos</div>
                     </div>
                   </div>
                 </div>
                 <div class="mockup-metric-row">
                   <div class="mockup-metric">
-                    <div class="metric-val">R$147</div>
-                    <div class="metric-lbl">Starter</div>
+                    <div class="metric-val">✓</div>
+                    <div class="metric-lbl">LP publicada</div>
                   </div>
                   <div class="mockup-metric">
-                    <div class="metric-val">5</div>
-                    <div class="metric-lbl">Módulos</div>
+                    <div class="metric-val">3</div>
+                    <div class="metric-lbl">Criativos prontos</div>
                   </div>
                   <div class="mockup-metric">
-                    <div class="metric-val">1</div>
-                    <div class="metric-lbl">Plataforma</div>
+                    <div class="metric-val">✓</div>
+                    <div class="metric-lbl">Meta ativo</div>
                   </div>
                 </div>
               </div>
@@ -2646,32 +3248,6 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         </div>
       </div>
     </section>
-    <div style="background: var(--bg-2)">
-      <div class="container">
-        <div class="benefits-strip">
-          <div class="benefit-pill fade-up" data-delay="0">
-            <span class="benefit-pill-dot"></span>Pesquisa de mercado integrada
-          </div>
-          <div class="benefit-pill fade-up" data-delay="80">
-            <span class="benefit-pill-dot"></span>Posicionamento e proposta de
-            valor
-          </div>
-          <div class="benefit-pill fade-up" data-delay="160">
-            <span class="benefit-pill-dot"></span>Copy e landing page na
-            plataforma
-          </div>
-          <div class="benefit-pill fade-up" data-delay="240">
-            <span class="benefit-pill-dot"></span>Criativos alinhados com a copy
-          </div>
-          <div class="benefit-pill fade-up" data-delay="320">
-            <span class="benefit-pill-dot"></span>Lançamento direto no Meta
-          </div>
-          <div class="benefit-pill fade-up" data-delay="400">
-            <span class="benefit-pill-dot"></span>100% em português
-          </div>
-        </div>
-      </div>
-    </div>
     <section id="modulos" class="section section--alt">
       <div class="glow-spot glow-mid"></div>
       <div class="container">
@@ -2804,7 +3380,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                 <h3>Copy e Landing Page</h3>
                 <p class="module-panel-desc">
                   A copy do produto e a estrutura da landing page são criadas
-                  dentro do Bluevian, com base no posicionamento definido. Sem
+                  dentro da Bluevian, com base no posicionamento definido. Sem
                   contratar copywriter separado.
                 </p>
                 <div class="module-features">
@@ -2859,7 +3435,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                 <h3>Lançamento no Meta</h3>
                 <p class="module-panel-desc">
                   A campanha é configurada e lançada diretamente pela
-                  plataforma. Você acompanha os resultados sem sair do Bluevian.
+                  plataforma. Você acompanha os resultados sem sair da Bluevian.
                 </p>
                 <div class="module-features">
                   <div class="module-feature">
@@ -2875,7 +3451,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                   <div class="module-feature">
                     <div class="module-feature-icon">→</div>
                     <p>
-                      Acompanhamento dos resultados centralizado no Bluevian
+                      Acompanhamento dos resultados centralizado na Bluevian
                     </p>
                   </div>
                 </div>
@@ -2919,90 +3495,100 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
     <div class="section-divider" aria-hidden="true"></div>
     <section id="dor" class="section" style="background: var(--bg)">
       <div class="container">
+        <div class="section-header section-header--center fade-up">
+          <span class="section-label">O problema real</span>
+          <h2 class="section-headline">
+            Cinco ferramentas abertas. Cinco logins. E o produto ainda não saiu do lugar.
+          </h2>
+          <p class="section-sub">
+            Você tem o produto pronto. O problema não é falta de vontade. É
+            que lançar exige um time inteiro ou uma pilha de ferramentas que
+            não conversam entre si.
+          </p>
+        </div>
         <div class="dor-grid">
           <div class="fade-left">
-            <span class="section-label">O problema real</span>
-            <h2 class="section-headline">
-              Lançar sozinho do jeito antigo não funciona mais
-            </h2>
-            <p style="margin-bottom: 32px">
-              Você tem um produto pronto e sabe que precisa levar ele para o
-              digital. O problema começa quando você tenta entender por onde
-              começar.
-            </p>
+            <div class="dor-col-label">
+              <span class="dor-col-badge dor-col-badge--x">Sem a Bluevian</span>
+            </div>
             <div class="dor-list">
               <div class="dor-item">
                 <div class="dor-x">✕</div>
                 <p>
-                  Pesquisa de mercado em um lugar, copy em outro, landing page
-                  em uma terceira ferramenta
+                  Você pesquisa o mercado em um lugar, escreve a copy em outro,
+                  monta a landing page em uma terceira ferramenta. Cada uma pede
+                  um briefing diferente. Nenhuma sabe o que a outra fez.
                 </p>
               </div>
               <div class="dor-item">
                 <div class="dor-x">✕</div>
                 <p>
-                  Criativos com um designer separado e campanha com um gestor
-                  que não conhece o produto
+                  Você contrata um designer que nunca leu sua copy e um gestor
+                  de tráfego que nunca viu seu produto. O anúncio que vai ao ar
+                  não tem nada a ver com a página que o visitante encontra.
                 </p>
               </div>
               <div class="dor-item">
                 <div class="dor-x">✕</div>
                 <p>
-                  Cada etapa terceirizada é mais tempo perdido e mais dinheiro
-                  gasto em profissionais desconectados
+                  Cada ferramenta cobra por mês. Cada profissional cobra por
+                  hora. No fim das contas, você gastou mais para tentar lançar
+                  do que vai recuperar nas primeiras semanas.
                 </p>
               </div>
               <div class="dor-item">
                 <div class="dor-x">✕</div>
                 <p>
-                  Produto chega ao ar com uma mensagem que não bate com o que o
-                  mercado quer ouvir
+                  Quando a campanha finalmente sobe, a mensagem do anúncio não
+                  bate com a página, que não bate com o que o público realmente
+                  quer ouvir.
                 </p>
               </div>
             </div>
           </div>
-          <div class="dor-solution fade-right" data-delay="200">
+          <div class="dor-solution fade-right" data-delay="150">
+            <div class="dor-col-label">
+              <span class="dor-col-badge dor-col-badge--check">Com a Bluevian</span>
+            </div>
             <div class="dor-solution-card">
-              <div class="dor-solution-title">Com o Bluevian, você tem:</div>
               <div class="dor-solution-items">
                 <div class="dor-solution-item">
                   <div class="dor-check">✓</div>
                   <p>
-                    Pesquisa de mercado integrada para entender o que o público
-                    quer antes de comunicar qualquer coisa
+                    Pesquisa de mercado integrada que entende seu público antes
+                    de qualquer linha ser escrita
                   </p>
                 </div>
                 <div class="dor-solution-item">
                   <div class="dor-check">✓</div>
                   <p>
-                    Concepção do posicionamento e da proposta de valor com base
-                    nos dados levantados
+                    Posicionamento e proposta de valor gerados a partir dos
+                    dados, não de suposições
                   </p>
                 </div>
                 <div class="dor-solution-item">
                   <div class="dor-check">✓</div>
                   <p>
-                    Criação de copy e landing page dentro da própria plataforma,
-                    sem redator ou ferramenta externa
+                    Copy e landing page criadas dentro da plataforma, sem abrir
+                    mais nenhuma aba
                   </p>
                 </div>
                 <div class="dor-solution-item">
                   <div class="dor-check">✓</div>
                   <p>
-                    Produção de criativos alinhados com a copy e com o
-                    posicionamento definido nas etapas anteriores
+                    Criativos alinhados com a copy, produzidos no mesmo fluxo,
+                    para o mesmo público
                   </p>
                 </div>
                 <div class="dor-solution-item">
                   <div class="dor-check">✓</div>
                   <p>
-                    Configuração e lançamento das campanhas no Meta diretamente
-                    pela plataforma
+                    Campanha configurada e lançada no Meta direto pela Bluevian
                   </p>
                 </div>
                 <div class="dor-solution-item">
                   <div class="dor-check">✓</div>
-                  <p>Tudo em português, construído para o mercado brasileiro</p>
+                  <p>Tudo em português, construído para quem vende no Brasil</p>
                 </div>
               </div>
             </div>
@@ -3015,11 +3601,11 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         <div class="section-header section-header--center fade-up">
           <span class="section-label">Para quem é</span>
           <h2 class="section-headline">
-            Feito para quem tem produto e precisa de estrutura
+            Se você tem um produto, a Bluevian tem a estrutura.
           </h2>
           <p class="section-sub">
-            O Bluevian foi desenhado para quem domina o próprio produto, não
-            para quem já domina marketing digital.
+            A Bluevian foi feita para quem domina o que vende. Não para quem já
+            domina marketing digital.
           </p>
         </div>
         <div class="para-quem-grid">
@@ -3030,11 +3616,11 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             >
               📦
             </div>
-            <h3>Donos de produtos físicos</h3>
+            <h3>Você tem um produto físico</h3>
             <p>
-              Que querem vender no digital mas não sabem por onde começar a
-              estrutura. O Bluevian funciona para produto físico da mesma forma
-              que para infoproduto.
+              Perfume, suplemento, artesanato, roupa, alimento. Você sabe o que
+              vende e sabe que tem valor. O que falta é a estrutura para chegar
+              nas pessoas certas no digital.
             </p>
           </div>
           <div class="para-quem-card fade-up" data-delay="100">
@@ -3044,11 +3630,11 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             >
               🎓
             </div>
-            <h3>Criadores de infoprodutos</h3>
+            <h3>Seu curso ou mentoria já está pronto</h3>
             <p>
-              Que têm o curso ou a mentoria prontos mas ainda não têm nenhuma
-              presença ou campanha ativa. Você entra com o produto, a plataforma
-              conduz o lançamento.
+              Você gravou as aulas, organizou o conteúdo, tem resultado para
+              mostrar. O que falta é tudo que vem antes de vender: pesquisa,
+              posicionamento, copy e campanha.
             </p>
           </div>
           <div class="para-quem-card fade-up" data-delay="200">
@@ -3058,10 +3644,11 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             >
               🔄
             </div>
-            <h3>Quem tentou lançar sozinho</h3>
+            <h3>Você já tentou lançar antes</h3>
             <p>
-              E não teve resultado. Que quer entender onde errou antes de tentar
-              de novo, com uma estrutura que conecta cada etapa à anterior.
+              Contratou profissionais, pagou por ferramentas, dedicou semanas.
+              Mas o lançamento não saiu ou não converteu. Você quer tentar de
+              novo com uma estrutura que conecta cada etapa.
             </p>
           </div>
           <div class="para-quem-card fade-up" data-delay="300">
@@ -3071,11 +3658,11 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             >
               ⏱
             </div>
-            <h3>Profissionais sem tempo</h3>
+            <h3>Você domina o produto, não o marketing</h3>
             <p>
-              Que dominam o próprio produto mas não têm tempo nem orçamento para
-              contratar pesquisador, copywriter, designer e gestor de tráfego
-              separados.
+              É médico, nutricionista, advogado, coach ou especialista em
+              qualquer área. Tem autoridade, mas não tem tempo nem vontade de
+              operar cinco ferramentas diferentes para lançar.
             </p>
           </div>
           <div class="para-quem-card fade-up" data-delay="400">
@@ -3085,11 +3672,11 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             >
               🔗
             </div>
-            <h3>Quem quer centralizar tudo</h3>
+            <h3>Você já paga por muitas ferramentas</h3>
             <p>
-              Que já pagou por ferramentas diferentes para cada etapa do
-              lançamento e quer centralizar tudo sem perder qualidade no
-              processo.
+              Uma para pesquisa, outra para copy, outra para a landing page,
+              outra para os criativos. Cada uma fazendo uma parte, nenhuma
+              conectada à outra. Você quer um único lugar que faça tudo.
             </p>
           </div>
         </div>
@@ -3112,7 +3699,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
               Do produto na mão à campanha no ar em 5 passos
             </h2>
             <p>
-              O fluxo do Bluevian foi desenhado para que cada etapa alimente a
+              O fluxo da Bluevian foi desenhado para que cada etapa alimente a
               seguinte. Você não pula nenhum passo e a mensagem chega
               consistente do anúncio até a página.
             </p>
@@ -3133,7 +3720,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                   <div class="step-content">
                     <h3>Pesquisa de mercado</h3>
                     <p>
-                      O Bluevian mapeia o que o seu público-alvo busca, quais
+                      A Bluevian mapeia o que o seu público-alvo busca, quais
                       dores ele tem e como os concorrentes estão se
                       posicionando. Você entra com o produto. A plataforma
                       entrega o contexto.
@@ -3162,7 +3749,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                     <h3>Copy e landing page</h3>
                     <p>
                       A copy do produto e a estrutura da landing page são
-                      criadas dentro do Bluevian, com base no posicionamento
+                      criadas dentro da Bluevian, com base no posicionamento
                       definido. Sem contratar copywriter separado, sem exportar
                       briefing para outra ferramenta.
                     </p>
@@ -3206,86 +3793,84 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       <div class="glow-spot glow-primary" style="opacity: 0.07"></div>
       <div class="container">
         <div class="section-header section-header--center fade-up">
-          <span class="section-label">O que o Bluevian entrega</span>
-          <h2 class="section-headline">Demonstração concreta de cada etapa</h2>
+          <span class="section-label">O que você recebe</span>
+          <h2 class="section-headline">Cada etapa entrega algo concreto. Veja o que é.</h2>
           <p class="section-sub">
-            Sem depoimentos genéricos. Veja o que a plataforma faz em cada fase
-            do seu lançamento.
+            Não é uma lista de funcionalidades. É o que sai da plataforma ao
+            final de cada módulo.
           </p>
         </div>
         <div class="carousel-outer fade-up" data-delay="200">
           <div class="carousel-track-wrapper">
             <div id="carousel-track">
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulo 01</div>
+                <div class="proof-label proof-label-blue">Módulo 01 — Pesquisa</div>
                 <div class="proof-section-title">
-                  Pesquisa de mercado integrada
+                  Um mapa do seu mercado, pronto para usar
                 </div>
                 <div class="proof-section-body">
-                  Você mapeia dores reais do público, tendências de busca e
-                  comportamento de compra dentro da própria plataforma. Sem
-                  precisar abrir quatro abas diferentes ou exportar planilha
-                  nenhuma.
+                  Você entra com o produto. A plataforma pesquisa o público,
+                  levanta as dores reais, analisa a concorrência e organiza tudo
+                  em um contexto claro. Sem abrir outra aba, sem exportar
+                  planilha.
                 </div>
                 <div class="proof-divider"></div>
-                <div class="proof-label proof-label-green">Resultado</div>
+                <div class="proof-label proof-label-green">O que você recebe</div>
                 <div class="proof-section-body">
-                  O contexto completo do seu mercado organizado e pronto para
-                  alimentar o posicionamento e a copy.
+                  Um briefing de mercado estruturado que alimenta
+                  automaticamente as próximas etapas.
                 </div>
               </div>
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulo 02</div>
+                <div class="proof-label proof-label-blue">Módulo 02 — Posicionamento</div>
                 <div class="proof-section-title">
-                  Posicionamento gerado a partir dos dados
+                  O ângulo certo para comunicar o seu produto
                 </div>
                 <div class="proof-section-body">
-                  O Bluevian cruza o que você levantou na pesquisa com o seu
-                  produto e sugere o ângulo de comunicação com mais potencial de
-                  conversão para o seu mercado específico.
+                  Com os dados da pesquisa em mãos, a Bluevian identifica como
+                  o seu produto deve ser apresentado para aquele público. Não é
+                  uma sugestão genérica. É posicionamento baseado no que o
+                  mercado está pedindo.
                 </div>
                 <div class="proof-divider"></div>
-                <div class="proof-label proof-label-green">Resultado</div>
+                <div class="proof-label proof-label-green">O que você recebe</div>
                 <div class="proof-section-body">
-                  Uma proposta de valor clara, fundamentada em dados reais, não
-                  em suposições sobre o que o mercado quer.
+                  Uma proposta de valor clara e um ângulo de comunicação pronto
+                  para virar copy.
                 </div>
               </div>
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulo 03</div>
+                <div class="proof-label proof-label-blue">Módulo 03 — Copy e Landing Page</div>
                 <div class="proof-section-title">
-                  Copy e criativos prontos para veicular
+                  A página de vendas do seu produto, gerada pela plataforma
                 </div>
                 <div class="proof-section-body">
-                  Textos de anúncio, roteiros de vídeo e peças visuais são
-                  gerados dentro da plataforma com base no posicionamento
-                  definido. Você revisa, aprova e exporta direto para o Meta.
+                  A copy é escrita com base no posicionamento e a landing page é
+                  montada na sequência. Você revisa, aprova e a página vai ao
+                  ar. Sem contratar ninguém, sem usar outra ferramenta.
                 </div>
                 <div class="proof-divider"></div>
-                <div class="proof-label proof-label-green">Resultado</div>
+                <div class="proof-label proof-label-green">O que você recebe</div>
                 <div class="proof-section-body">
-                  Mensagem consistente do anúncio até a página, sem ruído de
-                  comunicação entre etapas feitas por profissionais diferentes.
+                  Uma landing page publicada com copy alinhada ao que o seu
+                  público quer ouvir.
                 </div>
               </div>
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulo 04 e 05</div>
+                <div class="proof-label proof-label-blue">Módulos 04 e 05 — Criativos e Campanha</div>
                 <div class="proof-section-title">
-                  Configuração da campanha sem sair do Bluevian
+                  Criativos e campanha no Meta, sem sair da Bluevian
                 </div>
                 <div class="proof-section-body">
-                  Estrutura de campanha, segmentação de público e configuração
-                  de orçamento são feitas na mesma interface onde você criou os
-                  criativos. Nenhuma etapa fica de fora, nenhuma ferramenta
-                  extra.
+                  Os criativos são produzidos alinhados com a copy. A campanha
+                  é configurada e lançada na mesma interface. A mensagem do
+                  anúncio bate com a página. O público vê o que você prometeu.
                 </div>
                 <div class="proof-divider"></div>
-                <div class="proof-label proof-label-green">Resultado</div>
+                <div class="proof-label proof-label-green">O que você recebe</div>
                 <div class="proof-section-body">
-                  Métricas de desempenho dos anúncios visíveis dentro do
-                  Bluevian, conectadas ao histórico do lançamento. Você
-                  identifica o que ajustar sem consultar relatórios em
-                  plataformas separadas.
+                  Campanha ativa no Meta com criativos, segmentação e orçamento
+                  configurados dentro da plataforma.
                 </div>
               </div>
             </div>
@@ -3326,7 +3911,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                 />
               </div>
               <div class="autoridade-photo-name">Leonardo Barbi</div>
-              <div class="autoridade-photo-role">Fundador do Bluevian</div>
+              <div class="autoridade-photo-role">Fundador da Bluevian</div>
             </div>
           </div>
           <div class="fade-right" data-delay="200">
@@ -3335,7 +3920,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
               Construído por quem resolveu esse problema na prática
             </h2>
             <p style="margin-bottom: 28px">
-              O Bluevian foi criado por Leonardo Barbi, engenheiro de software
+              A Bluevian foi criada por Leonardo Barbi, engenheiro de software
               com anos de experiência dentro das maiores operações digitais do
               Brasil. Leonardo passou boa parte da carreira resolvendo o tipo de
               problema que a maioria dos empreendedores não consegue nem nomear:
@@ -3372,7 +3957,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                     Especialista em integração de sistemas
                   </div>
                   <div class="credential-desc">
-                    O Bluevian nasceu da observação direta do que acontece
+                    A Bluevian nasceu da observação direta do que acontece
                     quando um bom produto tenta chegar ao digital sem estrutura.
                   </div>
                 </div>
@@ -3391,8 +3976,8 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             Respostas diretas para as dúvidas mais frequentes
           </h2>
           <p class="section-sub">
-            Antes de decidir, é natural ter perguntas. Aqui estão as respostas
-            para as objeções que mais aparecem.
+            Antes de entrar, a cabeça pensa em tudo que pode dar errado. Aqui
+            vão as respostas diretas.
           </p>
         </div>
         <div class="objecoes-grid">
@@ -3402,25 +3987,24 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
               "Não tenho conhecimento técnico para usar uma plataforma assim."
             </div>
             <div class="objecao-answer">
-              O Bluevian foi construído para quem domina o próprio produto, não
-              para quem domina marketing digital. Cada etapa é guiada pela
-              plataforma, da pesquisa de mercado até a configuração da campanha.
-              Você não precisa saber escrever copy, criar criativos ou
-              configurar anúncio antes de entrar.
+              Esse é exatamente o perfil para quem a Bluevian foi construída.
+              Você não precisa saber escrever copy, montar landing page, criar
+              criativo ou configurar campanha. A plataforma conduz cada etapa
+              com base no que você já sabe: o seu produto. O conhecimento
+              técnico fica do lado da plataforma.
             </div>
           </div>
           <div class="objecao-card fade-up" data-delay="100">
             <div class="objecao-icon">👥</div>
             <div class="objecao-question">
-              "Já pago para profissionais fazerem isso por mim. Por que mudar?"
+              "Já pago profissionais para fazerem isso por mim. Por que mudar?"
             </div>
             <div class="objecao-answer">
-              Profissionais separados para cada etapa trabalham com o briefing
-              que recebem, não com o contexto completo do seu produto e do seu
-              mercado. Quando a pesquisa, a copy, o criativo e a campanha são
-              feitos dentro do mesmo fluxo, a mensagem chega consistente do
-              anúncio até a página. Essa consistência é o que a maioria dos
-              lançamentos descoordenados não consegue entregar.
+              Profissionais separados trabalham com o briefing que recebem, não
+              com o contexto do seu produto. O copywriter não sabe o que o
+              pesquisador levantou. O gestor de tráfego não leu a copy. No
+              Bluevian, tudo acontece no mesmo fluxo, com o mesmo contexto. A
+              mensagem do anúncio bate com a página que o visitante encontra.
             </div>
           </div>
           <div class="objecao-card fade-up" data-delay="200">
@@ -3429,10 +4013,11 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
               "Meu produto é físico. Isso é para mim?"
             </div>
             <div class="objecao-answer">
-              O processo de pesquisa de mercado, posicionamento, copy, criativo
-              e campanha no Meta funciona da mesma forma para produto físico e
-              digital. O Bluevian não exige que seu produto seja um curso ou uma
-              mentoria para você usar a plataforma.
+              Sim. Pesquisa de mercado, posicionamento, copy, criativo e
+              campanha no Meta funcionam da mesma forma para produto físico e
+              digital. A Bluevian não foi feita só para infoproduto. Foi feita
+              para qualquer produto que precise de uma estrutura de lançamento
+              no digital.
             </div>
           </div>
         </div>
@@ -3443,25 +4028,23 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         <div class="garantia-card fade-up">
           <div class="garantia-badge">🛡️</div>
           <span class="section-label">Garantia</span>
-          <h2>Você não precisa confiar apenas na nossa palavra</h2>
+          <h2>Você não paga pelo que não usou.</h2>
           <div class="garantia-days">7 dias</div>
           <div class="garantia-days-label">
-            de garantia com reembolso integral
+            para testar sem risco
           </div>
           <p>
-            Você pode testar o Bluevian por 7 dias antes de decidir se ele faz
-            sentido para o seu negócio. Durante esse período, você terá acesso à
-            plataforma com funcionalidades suficientes para avaliar se a
-            ferramenta resolve o problema que você tem hoje.
+            Você tem 7 dias para usar a Bluevian e avaliar se ele faz sentido
+            para o seu negócio.
           </p>
           <p style="margin-top: 16px">
-            Se em até 7 dias você concluir que o Bluevian não é para você, basta
-            solicitar o reembolso e devolvemos 100% do valor pago, sem
-            burocracia e sem questionamentos.
+            Se usou até 10% dos créditos do mês, devolvemos 100% do valor. Se
+            usou mais, devolvemos proporcionalmente ao que ficou sem usar. Você
+            paga só pelo que consumiu, nada além disso.
           </p>
           <p style="margin-top: 16px">
-            A lógica é simples: você entra, usa, avalia com base na sua própria
-            experiência e só então decide se continua.
+            Sem burocracia, sem questionamento. O reembolso é processado em até
+            5 dias úteis no cartão utilizado.
           </p>
         </div>
       </div>
@@ -3529,8 +4112,8 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                 <span>Painel de acompanhamento de resultados</span>
               </div>
             </div>
-            <a href="#" class="btn-secondary" data-cta="true"
-              >Criar minha conta no Bluevian</a
+            <button type="button" class="btn-secondary" data-form-plan="starter"
+              >Criar minha conta na Bluevian</button
             >
           </div>
           <div class="plano-card destaque fade-up" data-delay="100">
@@ -3576,8 +4159,8 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                 <span>Painel de acompanhamento de resultados</span>
               </div>
             </div>
-            <a href="#" class="btn-primary" data-cta="true"
-              >Criar minha conta no Bluevian</a
+            <button type="button" class="btn-primary" data-form-plan="pro"
+              >Criar minha conta na Bluevian</button
             >
           </div>
           <div class="plano-card fade-up" data-delay="200">
@@ -3622,8 +4205,8 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
                 <span>Painel de acompanhamento de resultados</span>
               </div>
             </div>
-            <a href="#" class="btn-secondary" data-cta="true"
-              >Criar minha conta no Bluevian</a
+            <button type="button" class="btn-secondary" data-form-plan="agency"
+              >Criar minha conta na Bluevian</button
             >
           </div>
         </div>
@@ -3652,25 +4235,25 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       <div class="container container--narrow">
         <div class="section-header section-header--center fade-up">
           <span class="section-label">Dúvidas frequentes</span>
-          <h2 class="section-headline">Perguntas e respostas</h2>
+          <h2 class="section-headline">Perguntas que todo mundo faz antes de entrar.</h2>
           <p class="section-sub">
-            Se ainda restar alguma dúvida, o suporte está disponível em
-            português, em horário comercial brasileiro.
+            Se ainda restar alguma dúvida, o suporte está em português, em
+            horário comercial brasileiro.
           </p>
         </div>
         <div class="faq-list fade-up" data-delay="200">
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">
               <span
-                >O Bluevian funciona para produtos físicos ou apenas para
+                >A Bluevian funciona para produtos físicos ou apenas para
                 infoprodutos?</span
               ><span class="faq-icon">+</span>
             </button>
             <div class="faq-answer">
               <p>
-                Funciona para os dois. O processo de pesquisa de mercado,
-                posicionamento, copy, criativo e campanha no Meta se aplica a
-                qualquer tipo de produto.
+                Funciona para os dois. Pesquisa, posicionamento, copy, criativo
+                e campanha no Meta seguem o mesmo fluxo para qualquer tipo de
+                produto.
               </p>
             </div>
           </div>
@@ -3683,8 +4266,9 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             </button>
             <div class="faq-answer">
               <p>
-                Não. O Bluevian guia cada etapa do processo. Você entra com o
-                produto e a plataforma conduz a estruturação do lançamento.
+                Não. Você entra com o produto e a plataforma conduz cada etapa.
+                Não é necessário saber escrever copy, criar criativo ou
+                configurar campanha antes de começar.
               </p>
             </div>
           </div>
@@ -3695,16 +4279,16 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             </button>
             <div class="faq-answer">
               <p>
-                Sim. A criação da copy e dos criativos acontece dentro do fluxo
-                da plataforma, com base nos dados levantados na pesquisa de
-                mercado e no posicionamento definido.
+                Sim. A copy e os criativos são gerados dentro do fluxo da
+                plataforma, com base nos dados da pesquisa e no posicionamento
+                definido.
               </p>
             </div>
           </div>
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">
               <span
-                >A campanha é lançada direto pelo Bluevian ou preciso acessar o
+                >A campanha é lançada direto pela Bluevian ou preciso acessar o
                 gerenciador do Meta?</span
               ><span class="faq-icon">+</span>
             </button>
@@ -3752,8 +4336,9 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             </button>
             <div class="faq-answer">
               <p>
-                Seus dados ficam disponíveis para exportação por 30 dias após o
-                cancelamento.
+                Seus projetos e dados ficam disponíveis por 90 dias após o
+                encerramento da conta. Depois desse prazo, são excluídos
+                permanentemente.
               </p>
             </div>
           </div>
@@ -3771,15 +4356,15 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       <div class="container">
         <div class="cta-final-inner fade-up">
           <span class="section-label">Comece hoje</span>
-          <h2>Você tem o produto. O Bluevian tem a estrutura.</h2>
+          <h2>Você tem o produto. A Bluevian tem a estrutura.</h2>
           <p>
-            Você começa hoje com o produto que já tem e sai com a estrutura
-            completa de lançamento pronta. Pesquisa, posicionamento, copy,
-            criativos e campanha, tudo em um único lugar.
+            Entre com o produto que você já tem. A plataforma faz o resto:
+            pesquisa, posicionamento, copy, landing page, criativos e campanha
+            no Meta. Tudo em um único lugar, sem precisar de mais nada.
           </p>
           <div class="cta-final-actions">
             <a href="#oferta" class="btn-primary" data-cta="true">
-              Criar minha conta no Bluevian
+              Lançar meu produto agora
               <svg
                 width="16"
                 height="16"
@@ -3797,12 +4382,24 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             ></a>
           </div>
           <p class="cta-final-note">
-            Pagamento seguro. Garantia de 7 dias com reembolso integral. Cancele
-            quando quiser, sem multa.
+            Pagamento seguro. 7 dias para testar, você paga só pelo que usar.
+            Cancele quando quiser, sem multa.
           </p>
         </div>
       </div>
     </section>
+    <!-- Plan form modal -->
+    <div id="plan-modal" class="plan-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="plan-modal-title">
+      <div class="plan-modal-overlay" id="plan-modal-overlay"></div>
+      <div class="plan-modal-dialog">
+        <div class="plan-modal-header">
+          <span class="plan-modal-title" id="plan-modal-title"></span>
+          <button class="plan-modal-close" id="plan-modal-close" type="button" aria-label="Fechar formulário">×</button>
+        </div>
+        <div class="plan-modal-body" id="plan-modal-body"></div>
+      </div>
+    </div>
+
     <div
       id="legal-modal-privacy"
       class="legal-modal"
@@ -4132,7 +4729,7 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
           <div class="legal-block">
             <h3>10. Política de Reembolso</h3>
             <h4>10.1 Garantia de 7 Dias</h4>
-            <p>Em conformidade com o art. 49 do Código de Defesa do Consumidor (Lei n.º 8.078/1990), o Usuário que contratar qualquer Plano Bluevian tem direito ao reembolso, desde que a solicitação seja realizada em até 7 (sete) dias corridos a contar da data da primeira cobrança do Plano.</p>
+            <p>Em conformidade com o art. 49 do Código de Defesa do Consumidor (Lei n.º 8.078/1990), o Usuário que contratar qualquer Plana Bluevian tem direito ao reembolso, desde que a solicitação seja realizada em até 7 (sete) dias corridos a contar da data da primeira cobrança do Plano.</p>
             <p>O valor do reembolso varia conforme o consumo de Créditos do Plano no período:</p>
             <ul>
               <li><strong>Uso de até 10% dos Créditos do Plano:</strong> reembolso integral do valor pago;</li>
@@ -4265,14 +4862,14 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
             <div class="footer-col-title">Plataforma</div>
             <nav class="footer-col-links">
               <a href="#como-funciona">Como funciona</a
-              ><a href="#modulos">Módulos</a><a href="#faq">Preços</a
+              ><a href="#modulos">Módulos</a><a href="#oferta">Preços</a
               ><a href="#garantia">Garantia</a>
             </nav>
           </div>
           <div class="footer-col">
             <div class="footer-col-title">Suporte</div>
             <nav class="footer-col-links">
-              <a href="#oferta">Dúvidas frequentes</a
+              <a href="#faq">Dúvidas frequentes</a
               ><a href="#objecoes">Objeções comuns</a
               ><a href="#autoridade">Sobre o criador</a>
             </nav>
@@ -4309,6 +4906,12 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         </div>
       </div>
     </footer>
+    <div class="cta-sticky-mobile" aria-hidden="true">
+      <a href="#oferta" class="btn-primary" data-cta="true">
+        Lançar meu produto agora →
+      </a>
+    </div>
+
     <script>
       // 1. IntersectionObserver para animações de scroll com stagger
       (function () {
@@ -4490,7 +5093,67 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         startInterval();
       })();
 
-      // 7. Sticky CTA mobile — some quando oferta está visível
+      // 7. Plan form modal — injeta form.js do NeoAtende no popup
+      (function () {
+        var modal = document.getElementById("plan-modal");
+        var overlay = document.getElementById("plan-modal-overlay");
+        var closeBtn = document.getElementById("plan-modal-close");
+        var modalBody = document.getElementById("plan-modal-body");
+        var modalTitle = document.getElementById("plan-modal-title");
+
+        var plans = {
+          starter: {
+            label: "Plano Starter",
+            src: "https://api.neoatende.net/api/public/automations/83a583b9cc717f5e596762acb357f210e5145398ee30e291/form.js",
+          },
+          pro: {
+            label: "Plano Pro",
+            src: "https://api.neoatende.net/api/public/automations/830cb632e84eed375c7f55ee01e3a9933c92898bd38918be/form.js",
+          },
+          agency: {
+            label: "Plano Agency",
+            src: "https://api.neoatende.net/api/public/automations/2560d1fc53b81515394c70c91b9015dc3453db07aeb8cd94/form.js",
+          },
+        };
+
+        function openModal(plan) {
+          if (!modal || !plans[plan]) return;
+          if (modalTitle) modalTitle.textContent = plans[plan].label;
+          // Limpa o body e injeta o script do plano
+          if (modalBody) {
+            modalBody.innerHTML = "";
+            var script = document.createElement("script");
+            script.src = plans[plan].src;
+            modalBody.appendChild(script);
+          }
+          modal.classList.add("open");
+          modal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+          if (!modal) return;
+          modal.classList.remove("open");
+          modal.setAttribute("aria-hidden", "true");
+          // Limpar o script ao fechar para evitar conflitos ao reabrir
+          if (modalBody) modalBody.innerHTML = "";
+          document.body.style.overflow = "";
+        }
+
+        if (closeBtn) closeBtn.addEventListener("click", closeModal);
+        if (overlay) overlay.addEventListener("click", closeModal);
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeModal();
+        });
+
+        document.querySelectorAll("[data-form-plan]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            openModal(btn.getAttribute("data-form-plan"));
+          });
+        });
+      })();
+
+      // 8. Sticky CTA mobile — some quando oferta está visível
       (function () {
         var sticky = document.querySelector(".cta-sticky-mobile");
         var oferta = document.getElementById("oferta");
