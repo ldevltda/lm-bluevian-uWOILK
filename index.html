@@ -121,7 +121,6 @@
         --font-h3: clamp(1.1rem, 2vw, 1.3rem);
         --font-body-sz: clamp(0.9375rem, 1.5vw, 1.0625rem);
       }
-
       *,
       *::before,
       *::after {
@@ -151,7 +150,6 @@
         color: inherit;
         text-decoration: none;
       }
-
       body {
         font-family: var(--font-body);
         font-size: var(--font-body-sz);
@@ -161,7 +159,6 @@
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
       }
-
       body::before {
         content: "";
         position: fixed;
@@ -176,7 +173,6 @@
         position: relative;
         z-index: 1;
       }
-
       .container {
         width: 100%;
         max-width: 1120px;
@@ -186,7 +182,6 @@
       .container--narrow {
         max-width: 720px;
       }
-
       .section {
         padding-block: clamp(64px, 10vw, 120px);
         position: relative;
@@ -197,7 +192,6 @@
       .section--dark {
         background: var(--bg-3);
       }
-
       .section-divider {
         width: 100%;
         height: 1px;
@@ -209,7 +203,6 @@
           transparent
         );
       }
-
       h1,
       h2,
       h3,
@@ -235,7 +228,6 @@
         line-height: 1.75;
         color: var(--text-2);
       }
-
       .gradient-text {
         background: linear-gradient(135deg, var(--accent), var(--accent-2));
         -webkit-background-clip: text;
@@ -273,7 +265,6 @@
       .section-header--center .section-sub {
         margin-inline: auto;
       }
-
       button.btn-primary,
       button.btn-secondary {
         font-family: var(--font-body);
@@ -281,7 +272,6 @@
         appearance: none;
         line-height: normal;
       }
-
       .btn-primary {
         position: relative;
         display: inline-flex;
@@ -333,7 +323,6 @@
       .btn-primary:active {
         transform: translateY(0) scale(0.98);
       }
-
       .btn-secondary {
         display: inline-flex;
         align-items: center;
@@ -356,7 +345,6 @@
         background: var(--surface-2);
         border-color: var(--border-glow);
       }
-
       .card {
         background: var(--surface);
         border: 1px solid var(--border);
@@ -391,7 +379,6 @@
           var(--shadow-lg),
           0 0 0 1px var(--border-glow);
       }
-
       .glow-spot {
         position: absolute;
         border-radius: 50%;
@@ -425,7 +412,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-
       .fade-up {
         opacity: 0;
         transform: translateY(28px);
@@ -453,7 +439,6 @@
         opacity: 1;
         transform: translate(0);
       }
-
       @keyframes float {
         0%,
         100% {
@@ -490,7 +475,6 @@
           transform: rotate(360deg);
         }
       }
-
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -500,7 +484,6 @@
         }
       }
 
-      /* ===================== NAVBAR ===================== */
       #navbar {
         position: fixed;
         top: 0;
@@ -588,7 +571,7 @@
       .hamburger.open span:nth-child(3) {
         transform: translateY(-7px) rotate(-45deg);
       }
-      /* Mobile drawer — painel lateral */
+
       #navbar-drawer {
         display: none;
         position: fixed;
@@ -599,7 +582,6 @@
         display: block;
       }
 
-      /* Backdrop escuro */
       .drawer-backdrop {
         position: absolute;
         inset: 0;
@@ -613,7 +595,6 @@
         to { opacity: 1; }
       }
 
-      /* Painel deslizando da direita */
       .drawer-panel {
         position: absolute;
         top: 0;
@@ -633,7 +614,6 @@
         to { transform: translateX(0); }
       }
 
-      /* Header do painel */
       .drawer-header {
         display: flex;
         align-items: center;
@@ -670,7 +650,6 @@
         border-color: var(--border-glow);
       }
 
-      /* Links de navegação */
       .drawer-nav {
         display: flex;
         flex-direction: column;
@@ -714,7 +693,6 @@
         margin: 8px 20px;
       }
 
-      /* Rodapé com CTA */
       .drawer-footer {
         padding: 20px;
         border-top: 1px solid var(--border);
@@ -739,7 +717,6 @@
         }
       }
 
-      /* ===================== HERO ===================== */
       #hero {
         background: var(--bg);
         min-height: 100svh;
@@ -842,7 +819,6 @@
         color: var(--text);
       }
 
-      /* Dashboard mockup */
       .hero-visual {
         position: relative;
         display: flex;
@@ -1013,7 +989,6 @@
         font-family: var(--font-body);
       }
 
-      /* Float cards */
       .float-card {
         position: absolute;
         background: rgba(255, 255, 255, 0.05);
@@ -1084,17 +1059,16 @@
         color: var(--text);
         font-family: var(--font-heading);
       }
-
       @media (max-width: 960px) {
         .hero-grid {
           grid-template-columns: 1fr;
           row-gap: 24px;
         }
-        /* Dissolve o wrapper: filhos viram itens diretos do grid */
+
         .hero-left {
           display: contents;
         }
-        /* Ordem: badge+h1 → visual → sub+ctas */
+
         .hero-content-top {
           order: 1;
         }
@@ -1104,11 +1078,11 @@
         .hero-content-bottom {
           order: 3;
         }
-        /* Remover margin-bottom do headline para não somar com row-gap */
+
         .hero-headline {
           margin-bottom: 0;
         }
-        /* Remover margin-bottom da sub para não somar com gap acima do visual */
+
         .hero-subheadline {
           margin-bottom: 24px;
         }
@@ -1133,7 +1107,6 @@
         }
       }
 
-      /* ===================== MODULOS ===================== */
       .modules-layout {
         display: grid;
         grid-template-columns: 280px 1fr;
@@ -1302,7 +1275,6 @@
         }
       }
 
-      /* ===================== STATS ===================== */
       .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1351,7 +1323,6 @@
         font-weight: 500;
       }
 
-      /* ===================== DOR ===================== */
       .dor-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1478,17 +1449,16 @@
         }
       }
 
-      /* ===================== PARA QUEM ===================== */
       .para-quem-grid {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: 24px;
       }
-      /* 3 cards na primeira linha */
+
       .para-quem-card {
         grid-column: span 2;
       }
-      /* 2 cards centralizados na segunda linha */
+
       .para-quem-card:nth-child(4) {
         grid-column: 2 / span 2;
       }
@@ -1561,7 +1531,6 @@
         color: var(--text-2);
       }
 
-      /* ===================== COMO FUNCIONA ===================== */
       .steps-wrapper {
         position: relative;
       }
@@ -1628,7 +1597,6 @@
         }
       }
 
-      /* ===================== DEPOIMENTOS / PROVA ===================== */
       .carousel-outer {
         position: relative;
         overflow: hidden;
@@ -1753,7 +1721,6 @@
         }
       }
 
-      /* ===================== AUTORIDADE ===================== */
       .autoridade-grid {
         display: grid;
         grid-template-columns: 1fr 1.5fr;
@@ -1870,7 +1837,6 @@
         }
       }
 
-      /* ===================== OBJEÇÕES ===================== */
       .objecoes-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1914,7 +1880,6 @@
         line-height: 1.65;
       }
 
-      /* ===================== GARANTIA ===================== */
       .garantia-card {
         max-width: 700px;
         margin-inline: auto;
@@ -1979,7 +1944,6 @@
         margin-bottom: 24px;
       }
 
-      /* ===================== OFERTA ===================== */
       .oferta-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -2141,7 +2105,6 @@
         line-height: 1.7;
       }
 
-      /* ===================== FAQ ===================== */
       .faq-list {
         display: flex;
         flex-direction: column;
@@ -2200,7 +2163,6 @@
         font-size: 0.9375rem;
         line-height: 1.75;
       }
-
       .legal-modal {
         position: fixed;
         inset: 0;
@@ -2329,7 +2291,6 @@
         overflow: hidden;
       }
 
-      /* ===================== CTA FINAL ===================== */
       .cta-final-inner {
         text-align: center;
         max-width: 640px;
@@ -2362,7 +2323,6 @@
         color: var(--text-3);
       }
 
-      /* ===================== FOOTER ===================== */
       footer {
         background: var(--bg);
         border-top: 1px solid var(--border);
@@ -2585,9 +2545,6 @@
       }
 
 
-      /* ===================== VISUAL POLISH V2 ===================== */
-
-      /* Stat cards — spring physics hover + glow */
       .stat-card {
         transition:
           transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -2600,7 +2557,6 @@
         box-shadow: var(--shadow-lg), var(--shadow-glow);
       }
 
-      /* Objeções cards — inner glow line + glow hover */
       .objecao-card {
         position: relative;
         overflow: hidden;
@@ -2630,12 +2586,10 @@
           var(--shadow-glow);
       }
 
-      /* Float cards — glass inset depth */
       .float-card {
         box-shadow: var(--shadow-md), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
       }
 
-      /* CTA Final — dramatic gradient overlay */
       #cta-final::before {
         content: "";
         position: absolute;
@@ -2659,7 +2613,6 @@
         z-index: 1;
       }
 
-      /* Dor — section glow */
       #dor {
         position: relative;
         overflow: hidden;
@@ -2684,7 +2637,6 @@
         z-index: 1;
       }
 
-      /* Dor X icons — stronger with glow */
       .dor-x {
         background: rgba(220, 38, 38, 0.22);
         box-shadow: 0 0 10px rgba(220, 38, 38, 0.18);
@@ -2693,13 +2645,11 @@
         box-shadow: 0 0 16px rgba(220, 38, 38, 0.3);
       }
 
-      /* Dor check icons — stronger with glow */
       .dor-check {
         background: rgba(5, 150, 105, 0.22);
         box-shadow: 0 0 10px rgba(5, 150, 105, 0.18);
       }
 
-      /* Dor solution card — glow treatment */
       .dor-solution-card {
         box-shadow: var(--shadow-md);
         transition:
@@ -2710,7 +2660,6 @@
         box-shadow: var(--shadow-lg), var(--shadow-glow);
       }
 
-      /* Garantia badge — pulsing ambient glow */
       @keyframes glow-pulse {
         0%,
         100% {
@@ -2728,13 +2677,11 @@
         animation: glow-pulse 3s ease-in-out infinite;
       }
 
-      /* Para quem cards — glow hover variant */
       .para-quem-card:hover {
         border-color: rgba(99, 102, 241, 0.2);
         box-shadow: var(--shadow-lg), var(--shadow-glow);
       }
 
-      /* Hero visual glow — richer dual-color */
       .hero-visual-glow {
         width: 90%;
         height: 80%;
@@ -2747,8 +2694,6 @@
         opacity: 0.13;
       }
 
-
-      /* Objeções — section glow */
       #objecoes {
         position: relative;
         overflow: hidden;
@@ -2773,13 +2718,11 @@
         z-index: 1;
       }
 
-      /* Plano destaque — enhanced glow on hover */
       .plano-card.destaque:hover {
         transform: translateY(-8px);
         box-shadow: var(--shadow-lg), 0 0 60px rgba(99, 102, 241, 0.3);
       }
 
-      /* Module panel — subtle glow on hover */
       .module-panel-content {
         transition:
           border-color 0.3s ease,
@@ -2790,14 +2733,12 @@
         box-shadow: var(--shadow-lg), var(--shadow-glow);
       }
 
-      /* Step numbers — stronger ambient glow */
       .step-number {
         box-shadow:
           0 0 24px rgba(37, 99, 235, 0.55),
           0 0 48px rgba(99, 102, 241, 0.18);
       }
 
-      /* FAQ — open state visual */
       .faq-item:has([aria-expanded="true"]) {
         border-color: rgba(37, 99, 235, 0.22);
         background: rgba(37, 99, 235, 0.02);
@@ -2807,12 +2748,10 @@
         color: var(--accent);
       }
 
-      /* Credential items — hover depth */
       .credential-item:hover {
         background: var(--surface-2);
       }
 
-      /* Mobile sticky CTA */
       .cta-sticky-mobile {
         display: none;
         position: fixed;
@@ -2844,9 +2783,7 @@
         }
       }
 
-      /* ===================== MOBILE — REVISÃO COMPLETA ===================== */
 
-      /* HERO: float cards escondidos, CTAs full-width, glow reduzido */
       @media (max-width: 768px) {
         .float-card {
           display: none;
@@ -2887,14 +2824,14 @@
         }
       }
       @media (max-width: 768px) {
-        /* Badge em 1 linha no mobile */
+
         .hero-badge {
           font-size: 0.625rem;
           padding: 4px 10px;
           gap: 5px;
           white-space: nowrap;
         }
-        /* "A Bluevian faz o lançamento" em bloco próprio, um pouco maior */
+
         .hero-headline .gradient-text {
           display: block;
           font-size: 1.1em;
@@ -2908,7 +2845,6 @@
         }
       }
 
-      /* STATS: 2 colunas no mobile */
       @media (max-width: 768px) {
         .stats-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -2921,7 +2857,6 @@
         }
       }
 
-      /* SECTION HEADERS: tipografia e max-width no mobile */
       @media (max-width: 768px) {
         .section-headline {
           font-size: clamp(1.5rem, 6vw, 2rem);
@@ -2935,22 +2870,18 @@
         }
       }
 
-
-      /* OBJEÇÕES: forçar 1 coluna (fix overflow: minmax(300px) > mobile) */
       @media (max-width: 768px) {
         .objecoes-grid {
           grid-template-columns: 1fr;
         }
       }
 
-      /* STEP CONTENT: max-width 100% no mobile */
       @media (max-width: 768px) {
         .step-content p {
           max-width: 100%;
         }
       }
 
-      /* AUTORIDADE: centralizar foto no mobile */
       @media (max-width: 768px) {
         .autoridade-grid {
           justify-items: center;
@@ -2965,7 +2896,6 @@
         }
       }
 
-      /* CAROUSEL: botão de controle com área de toque maior */
       @media (max-width: 768px) {
         .carousel-btn {
           width: 48px;
@@ -2973,7 +2903,6 @@
         }
       }
 
-      /* GARANTIA: padding reduzido em telas muito pequenas */
       @media (max-width: 480px) {
         .garantia-card {
           padding: 28px 20px;
@@ -2985,7 +2914,6 @@
         }
       }
 
-      /* OFERTA: 1 coluna + espaço para sticky CTA */
       @media (max-width: 640px) {
         .oferta-grid {
           grid-template-columns: 1fr;
@@ -3001,7 +2929,6 @@
         }
       }
 
-      /* FAQ: área de toque mínima de 56px */
       @media (max-width: 768px) {
         .faq-question {
           min-height: 56px;
@@ -3017,7 +2944,6 @@
         }
       }
 
-      /* CTA FINAL: botão full-width + espaço sticky CTA */
       @media (max-width: 768px) {
         #cta-final {
           padding-bottom: max(80px, calc(60px + env(safe-area-inset-bottom, 0px)));
@@ -3034,14 +2960,12 @@
         }
       }
 
-      /* FOOTER: padding-bottom no mobile para não cobrir com sticky CTA */
       @media (max-width: 768px) {
         footer {
           padding-bottom: max(48px, calc(32px + env(safe-area-inset-bottom, 0px)));
         }
       }
 
-      /* ===== PLAN FORM MODAL ===== */
       .plan-modal {
         display: none;
         position: fixed;
@@ -3127,7 +3051,7 @@
           max-height: 90vh;
         }
       }
-    </style>
+</style>
 
     
   
@@ -4702,14 +4626,14 @@
               <li><strong>Revogação do consentimento:</strong> Revogar o consentimento dado para finalidades específicas a qualquer tempo, sem prejuízo da licitude do tratamento anterior.</li>
               <li><strong>Revisão de decisões automatizadas:</strong> Solicitar revisão de decisões tomadas com base exclusivamente em tratamento automatizado que afetem seus interesses.</li>
             </ul>
-            <p>Para exercer qualquer desses direitos, envie solicitação para <strong>privacidade@bluevian.com.br</strong> ou <strong>contato@bluevian.com.br</strong>. Responderemos em até 15 dias úteis. Poderemos solicitar verificação de identidade antes de atender à solicitação.</p>
+            <p>Para exercer qualquer desses direitos, envie solicitação para <strong>privacidade&#64;bluevian.com.br</strong> ou <strong>contato&#64;bluevian.com.br</strong>. Responderemos em até 15 dias úteis. Poderemos solicitar verificação de identidade antes de atender à solicitação.</p>
           </div>
 
           <div class="legal-block">
             <h3>11. Encarregado de Proteção de Dados (DPO)</h3>
             <p>Nos termos do art. 41 da LGPD, o canal de contato para assuntos de proteção de dados é:</p>
             <div class="legal-address">
-              <p><strong>E-mail:</strong> privacidade@bluevian.com.br</p>
+              <p><strong>E-mail:</strong> privacidade&#64;bluevian.com.br</p>
               <p><strong>Responsável:</strong> L B Fernandes LTDA (Ldev)</p>
               <p><strong>Endereço:</strong> Rua Raimundo Nogueira, 48, Complemento A, Aeroporto, Fortaleza – CE, CEP 60860-050</p>
             </div>
@@ -4745,8 +4669,8 @@
           <div class="legal-block">
             <h3>17. Contato</h3>
             <div class="legal-address">
-              <p><strong>E-mail geral:</strong> contato@bluevian.com.br</p>
-              <p><strong>E-mail de privacidade:</strong> privacidade@bluevian.com.br</p>
+              <p><strong>E-mail geral:</strong> contato&#64;bluevian.com.br</p>
+              <p><strong>E-mail de privacidade:</strong> privacidade&#64;bluevian.com.br</p>
               <p><strong>Empresa:</strong> L B Fernandes LTDA (Ldev)</p>
               <p><strong>CNPJ:</strong> 53.696.338/0001-96</p>
               <p><strong>Endereço:</strong> Rua Raimundo Nogueira, 48, Complemento A, Aeroporto, Fortaleza – CE, CEP 60860-050</p>
@@ -4812,7 +4736,7 @@
             <h3>5. Elegibilidade e Cadastro</h3>
             <p>Para utilizar a plataforma, o Usuário deve: (i) ter no mínimo 18 anos de idade ou ser emancipado legalmente; (ii) ter capacidade civil plena para firmar contratos; (iii) não estar impedido de celebrar contratos eletrônicos sob a legislação brasileira aplicável.</p>
             <p>Ao criar uma conta, o Usuário compromete-se a fornecer informações verdadeiras, precisas, atuais e completas. A criação de contas com informações falsas, duplicadas ou fraudulentas é vedada e poderá resultar no encerramento imediato da conta sem reembolso.</p>
-            <p>O Usuário é inteiramente responsável pela guarda de suas credenciais de acesso e por todas as atividades realizadas em sua conta. Em caso de suspeita de uso não autorizado, o Usuário deverá notificar imediatamente a Bluevian pelo e-mail contato@bluevian.com.br.</p>
+            <p>O Usuário é inteiramente responsável pela guarda de suas credenciais de acesso e por todas as atividades realizadas em sua conta. Em caso de suspeita de uso não autorizado, o Usuário deverá notificar imediatamente a Bluevian pelo e-mail contato&#64;bluevian.com.br.</p>
           </div>
 
           <div class="legal-block">
@@ -4851,7 +4775,7 @@
             <p>O Usuário pode cancelar sua assinatura a qualquer momento por meio de uma das seguintes formas:</p>
             <ul>
               <li>Acessando Configurações &gt; Assinatura &gt; Cancelar Plano dentro da plataforma;</li>
-              <li>Enviando e-mail para contato@bluevian.com.br com o assunto "Cancelamento de Assinatura" e o e-mail da conta.</li>
+              <li>Enviando e-mail para contato&#64;bluevian.com.br com o assunto "Cancelamento de Assinatura" e o e-mail da conta.</li>
             </ul>
             <p>Solicitações de cancelamento são processadas em até 1 (um) dia útil. Após a confirmação, o Usuário receberá e-mail de confirmação com o detalhamento das condições aplicáveis.</p>
             <h4>9.2 Efeito do Cancelamento</h4>
@@ -4970,7 +4894,7 @@
           <div class="legal-block">
             <h3>23. Contato e Suporte</h3>
             <div class="legal-address">
-              <p><strong>E-mail:</strong> contato@bluevian.com.br</p>
+              <p><strong>E-mail:</strong> contato&#64;bluevian.com.br</p>
               <p><strong>Empresa:</strong> L B Fernandes LTDA (Ldev)</p>
               <p><strong>CNPJ:</strong> 53.696.338/0001-96</p>
               <p><strong>Endereço:</strong> Rua Raimundo Nogueira, 48, Complemento A, Aeroporto, Fortaleza – CE, CEP 60860-050</p>
@@ -5202,11 +5126,14 @@
             dotsContainer.appendChild(dot);
           }
         }
+        var cachedCardWidth = 0;
+        function updateCardWidth() {
+          cachedCardWidth = cards.length > 0 ? cards[0].offsetWidth + 24 : 0;
+        }
         function goTo(idx) {
           current = Math.max(0, Math.min(idx, maxDots - 1));
-          var cardWidth = cards[0].offsetWidth + 24;
           track.style.transform =
-            "translateX(-" + current * cardWidth * visible + "px)";
+            "translateX(-" + current * cachedCardWidth * visible + "px)";
           if (dotsContainer) {
             dotsContainer
               .querySelectorAll(".carousel-dot")
@@ -5249,11 +5176,15 @@
             isMobile = window.innerWidth <= 768;
             visible = isMobile ? 1 : Math.min(2, total);
             maxDots = Math.ceil(total / visible);
+            updateCardWidth();
             goTo(0);
           },
           { passive: true },
         );
-        startInterval();
+        requestAnimationFrame(function () {
+          updateCardWidth();
+          startInterval();
+        });
       })();
 
       // 7. Plan form modal — injeta form.js do NeoAtende no popup
