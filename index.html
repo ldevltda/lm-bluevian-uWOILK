@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      Bluevian — Lance seu produto no digital sem montar estrutura do zero
+      Bluevian: Lance seu produto no digital sem montar estrutura do zero
     </title>
     <meta
       name="description"
@@ -14,7 +14,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Bluevian — Lance seu produto no digital sem montar estrutura do zero"
+      content="Bluevian: Lance seu produto no digital sem montar estrutura do zero"
     />
     <meta
       property="og:description"
@@ -29,7 +29,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Bluevian — Lance seu produto no digital sem montar estrutura do zero"
+      content="Bluevian: Lance seu produto no digital sem montar estrutura do zero"
     />
     <meta
       name="twitter:description"
@@ -324,7 +324,7 @@
                 <div class="mac-dot mac-dot-yellow"></div>
                 <div class="mac-dot mac-dot-green"></div>
                 <div class="mockup-bar-title">
-                  Bluevian — Lançamento do produto
+                  Bluevian: Lançamento do produto
                 </div>
               </div>
               <div class="mockup-body">
@@ -663,6 +663,60 @@
       </div>
     </section>
     <div class="section-divider" aria-hidden="true"></div>
+    <section id="integracoes" class="section section--alt">
+      <style>
+        .integracoes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+        .integracao-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:clamp(24px,3vw,32px);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s ease,box-shadow .3s ease}
+        .integracao-card::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-glow) 30%,var(--border-glow) 70%,transparent)}
+        .integracao-card:hover{transform:translateY(-4px);border-color:var(--border-glow);box-shadow:var(--shadow-lg),var(--shadow-glow)}
+        .integracao-logo{width:52px;height:52px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;margin-bottom:20px;flex-shrink:0}
+        .integracao-logo--github{background:#161b22;border:1px solid rgba(255,255,255,0.08)}
+        .integracao-logo--vercel{background:#1a1a1a;border:1px solid rgba(255,255,255,0.08)}
+        .integracao-logo--meta{background:rgba(8,102,255,0.12);border:1px solid rgba(8,102,255,0.2)}
+        .integracao-badge{display:inline-block;font-size:.5625rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:3px 9px;border-radius:3px;background:rgba(37,99,235,.1);color:var(--accent);margin-bottom:12px;font-family:var(--font-heading)}
+        .integracao-card h3{font-size:1rem;margin-bottom:8px;color:var(--text)}
+        .integracao-card p{font-size:.9rem;color:var(--text-2);line-height:1.65}
+        @media(max-width:768px){.integracoes-grid{grid-template-columns:1fr;gap:16px}}
+      </style>
+      <div class="container">
+        <div class="section-header section-header--center fade-up">
+          <span class="section-label">Integrações nativas</span>
+          <h2 class="section-headline">
+            Infraestrutura de nível profissional,<br>sem você precisar configurar nada.
+          </h2>
+          <p class="section-sub">
+            A Bluevian conecta seu projeto com as ferramentas mais confiáveis do mercado por baixo dos panos. Você foca no lançamento. A infraestrutura cuida do resto.
+          </p>
+        </div>
+        <div class="integracoes-grid fade-up" data-delay="200">
+          <div class="integracao-card">
+            <div class="integracao-logo integracao-logo--github">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </div>
+            <span class="integracao-badge">Integração nativa</span>
+            <h3>GitHub: Versionamento automático</h3>
+            <p>Cada projeto criado na Bluevian fica salvo e versionado no GitHub automaticamente. Histórico completo de alterações, sem abrir um terminal ou saber programar.</p>
+          </div>
+          <div class="integracao-card">
+            <div class="integracao-logo integracao-logo--vercel">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M24 22.525H0L12 1.475z"/></svg>
+            </div>
+            <span class="integracao-badge">Integração nativa</span>
+            <h3>Vercel: Deploy global instantâneo</h3>
+            <p>Suas landing pages são publicadas na infraestrutura da Vercel, a mesma usada pelas maiores startups do mundo. Rápido, confiável, com CDN global. Você clica em publicar. O resto é automático.</p>
+          </div>
+          <div class="integracao-card">
+            <div class="integracao-logo integracao-logo--meta">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="#0866FF" aria-hidden="true"><path d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .865 1.62 5.37 5.37 0 0 0 .371.428c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.372-.655.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.763.665-1.598 1.984-2.39 3.752l-.36.877-.214-.353c-1.059-1.736-1.876-2.875-2.685-3.665C9.07 4.487 8.016 4.03 6.916 4.03z"/></svg>
+            </div>
+            <span class="integracao-badge">Integração nativa</span>
+            <h3>Meta Ads: Campanha direto da plataforma</h3>
+            <p>Configure e lance campanhas no Meta Ads sem sair da Bluevian. Sem exportar criativos manualmente, sem trocar de aba, sem copiar e colar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="section-divider" aria-hidden="true"></div>
     <section id="stats" class="section section--dark">
       <div class="container">
         <div class="stats-grid">
@@ -787,7 +841,7 @@
                   <div class="dor-check">✓</div>
                   <p>
                     Suba sua campanha no Meta sem depender de gestor de
-                    tráfego — configuração, segmentação e lançamento direto pela
+                    tráfego, com configuração, segmentação e lançamento direto pela
                     plataforma
                   </p>
                 </div>
@@ -1012,7 +1066,7 @@
           <div class="carousel-track-wrapper">
             <div id="carousel-track">
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulo 01 — Pesquisa</div>
+                <div class="proof-label proof-label-blue">Módulo 01: Pesquisa</div>
                 <div class="proof-section-title">
                   Um mapa do seu mercado, pronto para usar
                 </div>
@@ -1030,7 +1084,7 @@
                 </div>
               </div>
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulo 02 — Posicionamento</div>
+                <div class="proof-label proof-label-blue">Módulo 02: Posicionamento</div>
                 <div class="proof-section-title">
                   O ângulo certo para comunicar o seu produto
                 </div>
@@ -1048,7 +1102,7 @@
                 </div>
               </div>
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulo 03 — Copy e Landing Page</div>
+                <div class="proof-label proof-label-blue">Módulo 03: Copy e Landing Page</div>
                 <div class="proof-section-title">
                   A página de vendas do seu produto, gerada pela plataforma
                 </div>
@@ -1065,7 +1119,7 @@
                 </div>
               </div>
               <div class="carousel-card">
-                <div class="proof-label proof-label-blue">Módulos 04 e 05 — Criativos e Campanha</div>
+                <div class="proof-label proof-label-blue">Módulos 04 e 05: Criativos e Campanha</div>
                 <div class="proof-section-title">
                   Criativos e campanha no Meta, sem sair da Bluevian
                 </div>
@@ -1214,7 +1268,7 @@
               separados trabalham com o briefing que recebem, não com o contexto
               real do seu produto. O copywriter não sabe o que a pesquisa
               levantou. O gestor de tráfego não leu a copy. Na Bluevian, tudo
-              acontece no mesmo fluxo — a mensagem do anúncio bate com a página
+              acontece no mesmo fluxo. A mensagem do anúncio bate com a página
               porque os dois foram gerados com o mesmo contexto, ao mesmo tempo.
             </div>
           </div>
@@ -1237,7 +1291,7 @@
               "É mais uma ferramenta que vou pagar e nunca usar de verdade."
             </div>
             <div class="objecao-answer">
-              Essa é uma preocupação legítima — a maioria das ferramentas entrega
+              Essa é uma preocupação legítima. A maioria das ferramentas entrega
               uma tela em branco e te deixa sozinho. A Bluevian funciona ao
               contrário: você entra com o produto, a plataforma conduz cada
               etapa com perguntas diretas e entrega o próximo passo pronto. Não
@@ -1681,6 +1735,7 @@
         </div>
       </div>
     </section>
+    </main>
     <!-- Plan form modal -->
     <div id="plan-modal" class="plan-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="plan-modal-title">
       <div class="plan-modal-overlay" id="plan-modal-overlay"></div>
@@ -1711,13 +1766,13 @@
           ×
         </button>
         <div class="legal-card">
-          <h2 id="legal-title-privacy" style="font-size:clamp(1.25rem,2.5vw,1.625rem);margin-bottom:6px;">Política de Privacidade — Bluevian</h2>
+          <h2 id="legal-title-privacy" style="font-size:clamp(1.25rem,2.5vw,1.625rem);margin-bottom:6px;">Política de Privacidade da Bluevian</h2>
           <p class="legal-meta">Última atualização: 11 de junho de 2026</p>
 
           <div class="legal-block">
             <h3>1. Informações do Controlador de Dados</h3>
             <p>Esta Política de Privacidade descreve como a <strong>L B Fernandes LTDA</strong>, inscrita no CNPJ n.º 53.696.338/0001-96, nome fantasia Ldev, com sede na Rua Raimundo Nogueira, 48, Complemento A, Bairro Aeroporto, CEP 60860-050, Fortaleza – Ceará ("Bluevian" ou "Controladora"), coleta, usa, armazena, compartilha e protege os dados pessoais dos usuários da plataforma Bluevian.</p>
-            <p>Esta Política está em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei n.º 13.709/2018), o Marco Civil da Internet (Lei n.º 12.965/2014) e demais normas aplicáveis.</p>
+            <p>Esta Política está em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD (Lei n.º 13.709/2018)), o Marco Civil da Internet (Lei n.º 12.965/2014) e demais normas aplicáveis.</p>
           </div>
 
           <div class="legal-block">
@@ -1780,12 +1835,12 @@
             <p>A Bluevian não vende, não aluga e não comercializa dados pessoais dos Usuários. O compartilhamento ocorre exclusivamente nas seguintes hipóteses:</p>
             <p><strong>Prestadores de serviços essenciais (operadores de dados):</strong></p>
             <ul>
-              <li>Clerk, Inc. — autenticação e gerenciamento de sessão;</li>
-              <li>Stripe, Inc. — processamento de pagamentos e gestão de assinaturas;</li>
-              <li>Anthropic, PBC — modelos de IA utilizados para geração de conteúdo;</li>
-              <li>Cloudflare, Inc. — CDN, hospedagem de landing pages e proteção contra ataques;</li>
-              <li>Resend, Inc. — envio de e-mails transacionais;</li>
-              <li>Neon Tech — banco de dados gerenciado (PostgreSQL).</li>
+              <li>Clerk, Inc.: autenticação e gerenciamento de sessão;</li>
+              <li>Stripe, Inc.: processamento de pagamentos e gestão de assinaturas;</li>
+              <li>Anthropic, PBC: modelos de IA utilizados para geração de conteúdo;</li>
+              <li>Cloudflare, Inc.: CDN, hospedagem de landing pages e proteção contra ataques;</li>
+              <li>Resend, Inc.: envio de e-mails transacionais;</li>
+              <li>Neon Tech: banco de dados gerenciado (PostgreSQL).</li>
             </ul>
             <p><strong>Integrações autorizadas pelo Usuário:</strong> GitHub, Inc., Vercel, Inc. e Meta Platforms, Inc., quando o Usuário concede acesso explicitamente.</p>
             <p><strong>Obrigações legais:</strong> Quando exigido por lei, ordem judicial, requisição de autoridade pública ou para proteção de direitos da Bluevian em litígios.</p>
@@ -1924,7 +1979,7 @@
           ×
         </button>
         <div class="legal-card">
-          <h2 id="legal-title-termos" style="font-size:clamp(1.25rem,2.5vw,1.625rem);margin-bottom:6px;">Termos de Uso — Bluevian</h2>
+          <h2 id="legal-title-termos" style="font-size:clamp(1.25rem,2.5vw,1.625rem);margin-bottom:6px;">Termos de Uso da Bluevian</h2>
           <p class="legal-meta">Última atualização: 11 de junho de 2026</p>
 
           <div class="legal-block">
@@ -1954,7 +2009,7 @@
 
           <div class="legal-block">
             <h3>4. Descrição do Serviço</h3>
-            <p>A Bluevian é uma plataforma de inteligência artificial para lançamento de produtos digitais. Por meio de um fluxo automatizado de oito etapas — Pesquisa, Concepção, Projeção, Copy, Design de LP, Código de LP, Criativos e Tráfego — a plataforma auxilia empreendedores e agências a criar landing pages, materiais de marketing e campanhas de anúncios de forma ágil e escalável.</p>
+            <p>A Bluevian é uma plataforma de inteligência artificial para lançamento de produtos digitais. Por meio de um fluxo automatizado de oito etapas (Pesquisa, Concepção, Projeção, Copy, Design de LP, Código de LP, Criativos e Tráfego), a plataforma auxilia empreendedores e agências a criar landing pages, materiais de marketing e campanhas de anúncios de forma ágil e escalável.</p>
             <p>As funcionalidades incluem, sem limitação: geração de copy com IA, criação e hospedagem de landing pages, deploy em domínios próprios ou na infraestrutura Bluevian, geração de criativos publicitários, integração com Meta Ads, análise de campanhas, versionamento de projetos e colaboração via chat.</p>
             <p>A Bluevian reserva-se o direito de modificar, adicionar ou remover funcionalidades a qualquer momento, mediante comunicação prévia nos casos em que tais alterações impactem substancialmente os Planos contratados.</p>
           </div>
@@ -1981,9 +2036,9 @@
             <h3>7. Planos e Valores</h3>
             <p>A plataforma oferece os seguintes Planos de assinatura mensal (valores em Reais, sujeitos a alteração):</p>
             <ul>
-              <li><strong>Starter:</strong> R$ 147,00/mês — 400 Créditos</li>
-              <li><strong>Pro:</strong> R$ 297,00/mês — 1.000 Créditos</li>
-              <li><strong>Agency:</strong> R$ 597,00/mês — 2.500 Créditos</li>
+              <li><strong>Starter:</strong> R$ 147,00/mês | 400 Créditos</li>
+              <li><strong>Pro:</strong> R$ 297,00/mês | 1.000 Créditos</li>
+              <li><strong>Agency:</strong> R$ 597,00/mês | 2.500 Créditos</li>
             </ul>
             <p>Pacotes de Créditos avulsos estão disponíveis por R$ 57,00 a cada 100 Créditos adicionais. Todos os valores incluem os impostos aplicáveis, quando devidos, e podem ser reajustados mediante aviso prévio de 30 dias.</p>
           </div>
@@ -1992,7 +2047,7 @@
             <h3>8. Pagamentos e Cobranças</h3>
             <p>Os pagamentos são processados pela plataforma Stripe, Inc., mediante cartão de crédito ou outros métodos disponibilizados. Ao fornecer um meio de pagamento, o Usuário autoriza a Bluevian a cobrar os valores devidos de forma recorrente, no início de cada ciclo de assinatura.</p>
             <p>Em caso de falha no pagamento, a Bluevian tentará cobrar automaticamente até 3 (três) vezes em intervalos de 24 horas. Persistindo a inadimplência, o acesso às funcionalidades pagas poderá ser suspenso e, posteriormente, a conta encerrada, sem prejuízo da cobrança dos valores devidos.</p>
-            <p>O Usuário declara que o meio de pagamento informado é de sua titularidade ou que possui autorização para utilizá-lo. A Bluevian não armazena dados completos de cartão — tais dados são gerenciados exclusivamente pelo Stripe em conformidade com o padrão PCI-DSS.</p>
+            <p>O Usuário declara que o meio de pagamento informado é de sua titularidade ou que possui autorização para utilizá-lo. A Bluevian não armazena dados completos de cartão; tais dados são gerenciados exclusivamente pelo Stripe em conformidade com o padrão PCI-DSS.</p>
             <p>Notas fiscais ou recibos são emitidos eletronicamente e enviados ao e-mail cadastrado no prazo legal. Em caso de disputa de cobrança (chargeback) considerada infundada, a Bluevian poderá suspender ou encerrar a conta e cobrar eventuais custos administrativos decorrentes.</p>
           </div>
 
@@ -2007,7 +2062,7 @@
             <p>Solicitações de cancelamento são processadas em até 1 (um) dia útil. Após a confirmação, o Usuário receberá e-mail de confirmação com o detalhamento das condições aplicáveis.</p>
             <h4>9.2 Efeito do Cancelamento</h4>
             <p>O cancelamento da assinatura não é imediato: o acesso ao Plano contratado permanece ativo até o último dia do ciclo de cobrança já pago. Após essa data, o acesso às funcionalidades pagas será desativado e os Créditos do Plano não utilizados expirarão.</p>
-            <p>Créditos avulsos (top-ups) adquiridos e não utilizados permanecerão disponíveis por até 12 meses a partir da data de compra, independentemente do status da assinatura — exceto em caso de encerramento definitivo da conta, hipótese em que expirarão imediatamente.</p>
+            <p>Créditos avulsos (top-ups) adquiridos e não utilizados permanecerão disponíveis por até 12 meses a partir da data de compra, independentemente do status da assinatura, exceto em caso de encerramento definitivo da conta, hipótese em que expirarão imediatamente.</p>
             <p>Projetos, landing pages hospedadas e demais dados do Usuário serão mantidos por 90 dias após o encerramento definitivo da conta, após o qual serão excluídos permanentemente dos sistemas da Bluevian.</p>
             <h4>9.3 Downgrade de Plano</h4>
             <p>O Usuário pode migrar para um Plano de menor valor a qualquer momento. O downgrade entrará em vigor no início do próximo ciclo de cobrança. Não haverá crédito proporcional pelo período restante do Plano atual. Caso o Usuário possua mais Créditos em uso ou projetos ativos do que o novo Plano comporta, a Bluevian notificará o Usuário para que tome as providências necessárias antes da migração.</p>
@@ -2094,7 +2149,7 @@
 
           <div class="legal-block">
             <h3>18. Privacidade e Proteção de Dados</h3>
-            <p>O tratamento de dados pessoais do Usuário é regido pela nossa Política de Privacidade, que integra estes Termos por referência. A Bluevian trata dados pessoais em conformidade com a Lei Geral de Proteção de Dados (Lei n.º 13.709/2018 — LGPD) e demais normas aplicáveis.</p>
+            <p>O tratamento de dados pessoais do Usuário é regido pela nossa Política de Privacidade, que integra estes Termos por referência. A Bluevian trata dados pessoais em conformidade com a Lei Geral de Proteção de Dados (LGPD, Lei n.º 13.709/2018) e demais normas aplicáveis.</p>
           </div>
 
           <div class="legal-block">
@@ -2130,7 +2185,6 @@
         </div>
       </div>
     </div>
-    </main>
     <footer>
       <div class="footer-glow" aria-hidden="true"></div>
       <div class="container">
@@ -2243,7 +2297,7 @@
         );
       })();
 
-      // 3. Hamburger mobile — drawer panel
+      // 3. Hamburger mobile: drawer panel
       (function () {
         var hamburger = document.getElementById("hamburger");
         var drawer = document.getElementById("navbar-drawer");
@@ -2417,7 +2471,7 @@
         }
       })();
 
-      // 7. Plan form modal — injeta form.js do NeoAtende no popup
+      // 7. Plan form modal: injeta form.js do NeoAtende no popup
       (function () {
         var modal = document.getElementById("plan-modal");
         var overlay = document.getElementById("plan-modal-overlay");
@@ -2477,7 +2531,7 @@
         });
       })();
 
-      // 8. Jornada flow — anima linha e nós ao entrar em tela
+      // 8. Jornada flow: anima linha e nós ao entrar em tela
       (function () {
         var flow = document.getElementById('jornada-flow');
         if (!flow) return;
@@ -2491,7 +2545,7 @@
         obs.observe(flow);
       })();
 
-      // 9. Sticky CTA mobile — some quando oferta está visível
+      // 9. Sticky CTA mobile: some quando oferta está visível
       (function () {
         var sticky = document.querySelector(".cta-sticky-mobile");
         var oferta = document.getElementById("oferta");
