@@ -3679,7 +3679,20 @@
         }
       }
     </style>
-  </head>
+  
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2186220055464773');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+</head>
   <body>
     <header id="navbar">
       <div class="container">
@@ -7199,5 +7212,75 @@
         });
       })();
     </script>
-  </body>
+  
+<!-- Launch Machine Events -->
+<script>
+(function(){
+  function _f(meta,ga4event,ga4params,ttqEvent){
+    try{if(typeof fbq==='function')fbq('track',meta);}catch(e){}
+    try{if(typeof gtag==='function')gtag('event',ga4event,ga4params||{});}catch(e){}
+    try{if(typeof ttq!=='undefined'&&ttq.track)ttq.track(ttqEvent);}catch(e){}
+  }
+  function _fc(name,params){
+    try{if(typeof fbq==='function')fbq('trackCustom',name,params||{});}catch(e){}
+  }
+  // ViewContent on load
+  window.addEventListener('load',function(){
+    _f('ViewContent','page_view',{},'ViewContent');
+  });
+  // Scroll depth: 25, 50, 75, 90%
+  var _sd=[25,50,75,90];
+  function _scr(){
+    var p=Math.round((window.scrollY+window.innerHeight)/Math.max(document.documentElement.scrollHeight,1)*100);
+    _sd=_sd.filter(function(d){
+      if(p<d)return true;
+      _fc('ScrollDepth',{depth:d});
+      try{if(typeof gtag==='function')gtag('event','scroll',{percent_scrolled:d});}catch(e){}
+      return false;
+    });
+    if(!_sd.length)window.removeEventListener('scroll',_scr);
+  }
+  window.addEventListener('scroll',_scr,{passive:true});
+  // ALL CTA clicks: classify by href/tag then fire appropriate event
+  document.addEventListener('click',function(e){
+    try{
+      var t=e.target;
+      var el=t&&t.closest?t.closest('a,button,input[type=button],input[type=submit]'):null;
+      if(!el)return;
+      var tag=el.tagName.toLowerCase();
+      var elType=(el.getAttribute('type')||'').toLowerCase();
+      var href=(el.getAttribute('href')||'').trim();
+      var hrefL=href.toLowerCase();
+      // submit buttons: let the submit event handle them
+      if(elType==='submit')return;
+      var isWA=/wa.me|whatsapp.com/.test(hrefL);
+      var isPay=/hotmart.|kiwify.|perfectpay.|eduzz.|monetizze.|payt.|ticto.|pay./.test(hrefL);
+      var isPhone=/^tel:/.test(hrefL);
+      var isMail=/^mailto:/.test(hrefL);
+      var isCal=/calendly.com|cal.com|agendify|tidycal.com/.test(hrefL);
+      var isSocial=/instagram.com|facebook.com|twitter.com|x.com|linkedin.com|youtube.com|tiktok.com|pinterest.com/.test(hrefL);
+      if(isWA){
+        _f('Contact','generate_lead',{method:'whatsapp'},'Contact');
+      }else if(isPay){
+        _f('InitiateCheckout','begin_checkout',{},'InitiateCheckout');
+      }else if(isPhone||isMail){
+        _f('Contact','generate_lead',{method:isPhone?'phone':'email'},'Contact');
+      }else if(isCal){
+        _f('Contact','generate_lead',{method:'calendar'},'Contact');
+      }else if(isSocial){
+        _fc('ClickSocial',{url:href});
+      }else{
+        // Generic CTA: button element, scroll anchor, or unknown external link
+        _f('Lead','generate_lead',{method:'cta'},'Contact');
+      }
+    }catch(e){}
+  });
+  // Form submit → Lead
+  document.addEventListener('submit',function(){
+    _f('Lead','generate_lead',{},'SubmitForm');
+  });
+})();
+</script>
+<!-- End Launch Machine Events -->
+</body>
 </html>
