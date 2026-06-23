@@ -29,4 +29,4 @@ index.html   ← Landing page completa e autocontida
 README.md    ← Este arquivo
 ```
 
-Gerado em: 15/06/2026
+Gerado em: 23/06/2026
