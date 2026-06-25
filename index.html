@@ -46,8 +46,6 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="dns-prefetch" href="https://connect.facebook.net" />
-    <link rel="dns-prefetch" href="https://www.facebook.com" />
     <link rel="dns-prefetch" href="https://www.youtube.com" />
     <link rel="dns-prefetch" href="https://img.youtube.com" />
     <link
@@ -3257,7 +3255,6 @@
       }
     </style>
 
-    <!-- Meta Pixel -->
     <style>
       /* ── JORNADA WOW SECTION ── */
       #jornada {
@@ -3679,19 +3676,6 @@
         }
       }
     </style>
-  
-<!-- Meta Pixel -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','2186220055464773');fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></noscript>
-<!-- End Meta Pixel -->
 </head>
   <body>
     <header id="navbar">
@@ -7026,62 +7010,6 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       })();
     </script>
 
-    <script>
-      (function () {
-        var loaded = false;
-        function loadFBPixel() {
-          if (loaded) return;
-          loaded = true;
-          !(function (f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function () {
-              n.callMethod
-                ? n.callMethod.apply(n, arguments)
-                : n.queue.push(arguments);
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = "2.0";
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s);
-          })(
-            window,
-            document,
-            "script",
-            "https://connect.facebook.net/en_US/fbevents.js",
-          );
-          fbq("init", "2186220055464773");
-          fbq("track", "PageView");
-        }
-        var evts = ["click", "touchstart", "keydown", "mousedown"];
-        function onInteraction() {
-          evts.forEach(function (ev) {
-            window.removeEventListener(ev, onInteraction);
-          });
-          loadFBPixel();
-        }
-        evts.forEach(function (ev) {
-          window.addEventListener(ev, onInteraction, {
-            once: true,
-            passive: true,
-          });
-        });
-        setTimeout(loadFBPixel, 30000);
-      })();
-    </script>
-    <noscript
-      ><img
-        height="1"
-        width="1"
-        style="display: none"
-        src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"
-    /></noscript>
-
     <!-- Video Modal -->
     <div
       id="yt-modal"
@@ -7212,21 +7140,16 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
         });
       })();
     </script>
-  
 <!-- Launch Machine Events -->
 <script>
 (function(){
-  function _f(meta,ga4event,ga4params,ttqEvent){
-    try{if(typeof fbq==='function')fbq('track',meta);}catch(e){}
+  function _f(ga4event,ga4params,ttqEvent){
     try{if(typeof gtag==='function')gtag('event',ga4event,ga4params||{});}catch(e){}
     try{if(typeof ttq!=='undefined'&&ttq.track)ttq.track(ttqEvent);}catch(e){}
   }
-  function _fc(name,params){
-    try{if(typeof fbq==='function')fbq('trackCustom',name,params||{});}catch(e){}
-  }
   // ViewContent on load
   window.addEventListener('load',function(){
-    _f('ViewContent','page_view',{},'ViewContent');
+    _f('page_view',{},'ViewContent');
   });
   // Scroll depth: 25, 50, 75, 90%
   var _sd=[25,50,75,90];
@@ -7234,7 +7157,6 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
     var p=Math.round((window.scrollY+window.innerHeight)/Math.max(document.documentElement.scrollHeight,1)*100);
     _sd=_sd.filter(function(d){
       if(p<d)return true;
-      _fc('ScrollDepth',{depth:d});
       try{if(typeof gtag==='function')gtag('event','scroll',{percent_scrolled:d});}catch(e){}
       return false;
     });
@@ -7247,7 +7169,6 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       var t=e.target;
       var el=t&&t.closest?t.closest('a,button,input[type=button],input[type=submit]'):null;
       if(!el)return;
-      var tag=el.tagName.toLowerCase();
       var elType=(el.getAttribute('type')||'').toLowerCase();
       var href=(el.getAttribute('href')||'').trim();
       var hrefL=href.toLowerCase();
@@ -7258,26 +7179,23 @@ src="https://www.facebook.com/tr?id=2186220055464773&ev=PageView&noscript=1"/></
       var isPhone=/^tel:/.test(hrefL);
       var isMail=/^mailto:/.test(hrefL);
       var isCal=/calendly.com|cal.com|agendify|tidycal.com/.test(hrefL);
-      var isSocial=/instagram.com|facebook.com|twitter.com|x.com|linkedin.com|youtube.com|tiktok.com|pinterest.com/.test(hrefL);
       if(isWA){
-        _f('Contact','generate_lead',{method:'whatsapp'},'Contact');
+        _f('generate_lead',{method:'whatsapp'},'Contact');
       }else if(isPay){
-        _f('InitiateCheckout','begin_checkout',{},'InitiateCheckout');
+        _f('begin_checkout',{},'InitiateCheckout');
       }else if(isPhone||isMail){
-        _f('Contact','generate_lead',{method:isPhone?'phone':'email'},'Contact');
+        _f('generate_lead',{method:isPhone?'phone':'email'},'Contact');
       }else if(isCal){
-        _f('Contact','generate_lead',{method:'calendar'},'Contact');
-      }else if(isSocial){
-        _fc('ClickSocial',{url:href});
+        _f('generate_lead',{method:'calendar'},'Contact');
       }else{
         // Generic CTA: button element, scroll anchor, or unknown external link
-        _f('Lead','generate_lead',{method:'cta'},'Contact');
+        _f('generate_lead',{method:'cta'},'Contact');
       }
     }catch(e){}
   });
   // Form submit → Lead
   document.addEventListener('submit',function(){
-    _f('Lead','generate_lead',{},'SubmitForm');
+    _f('generate_lead',{},'SubmitForm');
   });
 })();
 </script>
